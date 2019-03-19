@@ -32,21 +32,22 @@ const cards = [
  *   - add each card's HTML to the page
  */
 shuffle(cards);
-for (let i = 0; i < cards.length; i++) {
-    const card = document.createElement("li");
+
+for (const card of cards) {
+    const li = document.createElement("li");
     const icon = document.createElement("i");
     icon.classList.add("fa");
-    icon.classList.add(cards[i]);
-    card.classList.add("card");
-    card.appendChild(icon);
-    deck.appendChild(card);
+    icon.classList.add(card);
+    li.classList.add("card");
+    li.appendChild(icon);
+    deck.appendChild(li);
 }
 
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     if (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -69,3 +70,12 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+deck.addEventListener("click", function(e) {
+    if (e.target.classList.contains("card")) {
+        displaySymbol(e.target);
+    }
+});
+
+function displaySymbol(arg) {
+    arg.classList.add("match");
+};
