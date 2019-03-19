@@ -1,12 +1,8 @@
-/**
- * variables
- */
-const deck = document.querySelector(".deck");
-let openCards = [];
-
 /*
  * Create a list that holds all of your cards
  */
+const deck = document.querySelector(".deck");
+let openCards = [];
 const cards = [
     "fa-diamond",
     "fa-paper-plane-o",
@@ -25,6 +21,7 @@ const cards = [
     "fa-bicycle",
     "fa-bomb"
 ];
+console.log(cards);
 
 /*
  * Display the cards on the page
@@ -45,7 +42,7 @@ for (const card of cards) {
     li.classList.add("card");
     li.appendChild(icon);
     deck.appendChild(li);
-    
+
 }
 
 
@@ -88,11 +85,26 @@ deck.addEventListener("click", function(e) {
     const selection = e.target;
 
     if (selection.classList.contains("card")) {
+
         displaySymbol(selection);
-        console.log(openCards);
-        for (const card of openCards) {
-            if (card.classList.contains("open", "show")) {
-                console.log(Yes);
+
+        // check if cards match
+        if (openCards.length === 2) {
+            const card1 = openCards[0];
+            const card2 = openCards[1];
+            if (card1 === card2) {
+                for (card of deck.children) {
+                    if (card.classList.contains(card1)) {
+                        console.log(card);
+                    }
+                    else {
+                        openCards = [];
+                    }
+                }
+            }
+            else {
+                openCards = [];
+                noMatch();
             }
         }
     }
