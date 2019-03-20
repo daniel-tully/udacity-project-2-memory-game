@@ -1,9 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const deck = document.querySelector(".deck");
-let openCards = [];
-const cards = [
+var cards = [
     "fa-diamond",
     "fa-paper-plane-o",
     "fa-anchor",
@@ -20,22 +18,20 @@ const cards = [
     "fa-leaf",
     "fa-bicycle",
     "fa-bomb"
-];
+]
+var deck = document.querySelector(".deck");
+var moveCounterSpan = document.querySelector(".moves");
+var moveCount = 0;
+var pairCount = 0;
+var openCards = [];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
+// shuffle the list of cards using the provided "shuffle" method below
 shuffle(cards);
-
+// loop through each card and create its HTML add each card's HTML to the page
 for (const card of cards) {
 
     const li = document.createElement("li");
     const icon = document.createElement("i");
-
     icon.classList.add("fa");
     icon.classList.add(card);
     li.classList.add("card");
@@ -63,19 +59,12 @@ function shuffle(array) {
 
 /*
  * set up the event listener for a card. If a card is clicked:
-
  *  - display the card's symbol (put this functionality in another function that you call from this one)
- * 
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- * 
  *  - if the list already has another card, check to see if the two cards match
- * 
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- * 
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- * 
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- * 
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
@@ -86,10 +75,13 @@ deck.addEventListener("click", function(e) {
     if (selection.classList.contains("card")) {
 
         displaySymbol(selection);
+
         // check if cards match
         if (openCards.length > 1) {
+            moveCounter();
             if (openCards[0].value === openCards[1].value) {
                 isMatch();
+                pairCounter();
             } else {
                 noMatch();
             }
@@ -97,16 +89,19 @@ deck.addEventListener("click", function(e) {
     
     }
 
+    // show card function
     function displaySymbol(arg) {
         arg.classList.add("open", "show");
         addCard(arg);
     };
     
+    // add card to 'openCards' function
     function addCard(arg) {
         let icon = arg.firstElementChild.classList;
-        openCards.push(icon);
+        return openCards.push(icon);
     };
 
+    // compare 2 cards in openCards
     function isMatch() {
         for (const card of deck.children) {
             if (card.classList.contains("open")) {
@@ -114,8 +109,8 @@ deck.addEventListener("click", function(e) {
                 card.classList.remove("open", "show");
             }
         }
-        console.log("Matched");
         openCards = [];
+        pairCount += 1;
     }
 
     function noMatch() {
@@ -125,5 +120,21 @@ deck.addEventListener("click", function(e) {
             }
             openCards = [];
         }, 1000);
+    }
+
+    function moveCounter() {
+        moveCount += 1;
+        moveCounterSpan.innerHTML = moveCount;
+    }
+
+    function pairCounter() {
+        if (pairCount === 1) {
+            var successContainer = document.querySelector(".success-container");
+            var messageDiv = document.createElement("div");
+            var messageH1 = document.createElement("h1");
+            messageH1.innerHtml = "Success!";
+            messageDiv.appendChild(messageH1);
+            successContainer.appendChild(messageDiv);
+        }
     }
 });

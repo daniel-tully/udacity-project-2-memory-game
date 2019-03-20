@@ -107,3 +107,23 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+* styles for the success modal
+*/
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.restart-button {
+    padding: 7px 10px;
+}
