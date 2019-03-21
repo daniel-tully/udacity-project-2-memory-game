@@ -81,7 +81,10 @@ deck.addEventListener("click", function(e) {
             moveCounter();
             if (openCards[0].value === openCards[1].value) {
                 isMatch();
-                pairCounter();
+                if (pairCount === 2) {
+                    pairCounter();
+                    restartGame();
+                }
             } else {
                 noMatch();
             }
@@ -101,7 +104,7 @@ deck.addEventListener("click", function(e) {
         return openCards.push(icon);
     };
 
-    // compare 2 cards in openCards
+    // cards match
     function isMatch() {
         for (const card of deck.children) {
             if (card.classList.contains("open")) {
@@ -113,6 +116,7 @@ deck.addEventListener("click", function(e) {
         pairCount += 1;
     }
 
+    // cards dont match
     function noMatch() {
         setTimeout(function () {
             for (const card of deck.children) {
@@ -122,19 +126,33 @@ deck.addEventListener("click", function(e) {
         }, 1000);
     }
 
+    // count player's moves
     function moveCounter() {
         moveCount += 1;
         moveCounterSpan.innerHTML = moveCount;
     }
 
     function pairCounter() {
-        if (pairCount === 1) {
+        setTimeout(function () {
             var successContainer = document.querySelector(".success-container");
-            var messageDiv = document.createElement("div");
-            var messageH1 = document.createElement("h1");
-            messageH1.innerHtml = "Success!";
-            messageDiv.appendChild(messageH1);
-            successContainer.appendChild(messageDiv);
-        }
+            var successCount = document.querySelector(".success-count");
+            successCount.innerHTML = moveCount;
+            successContainer.style.display = "flex";
+        },300);
     }
+
+    function restartGame() {
+        var restartButton = document.querySelector(".restart-button");
+        restartButton.addEventListener("click", function (){
+            var successContainer = document.querySelector(".success-container");
+            successContainer.style.display = "none";
+            // zero counter
+            moveCounterSpan.innerHTML = 0;
+            // clear all cards
+            for (let i = 0; i < deck.children.length; i++) {
+                deck.children[i].classList.remove("match");
+            }
+        });
+    }
+
 });

@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: 'Coda', sans-serif;
 }
 
 .container {
@@ -112,7 +112,7 @@ h1 {
 * styles for the success modal
 */
 .success-container {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -122,6 +122,10 @@ h1 {
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
+}
+
+.success-count {
+    font-weight: bold;
 }
 
 .restart-button {
