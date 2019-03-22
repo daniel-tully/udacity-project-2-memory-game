@@ -1,6 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
+// cards
 var cards = [
     'fa-diamond',
     'fa-paper-plane-o',
@@ -25,18 +23,14 @@ var moveCount = 0;
 var pairCount = 0;
 var openCards = [];
 
+// start game
 window.onload = function() {
-    initGame();
-};
-
-function restartGame() {
     shuffle(cards);
-    deck.remove(children);
-    for (const card of cards) {
-        const li = document.createElement('li');
-        const icon = document.createElement('i');
+    for (i = 0; i < cards.length; i++) {
+        var li = document.createElement('li');
+        var icon = document.createElement('i');
         icon.classList.add('fa');
-        icon.classList.add(card);
+        icon.classList.add(cards[i]);
         li.classList.add('card');
         li.appendChild(icon);
         deck.appendChild(li);
@@ -64,14 +58,14 @@ deck.addEventListener('click', function(e) {
     const selection = e.target;
 
     if (selection.classList.contains('card')) {
-        displaySymbol(selection);
+        showCard(selection);
         // check if cards match
         if (openCards.length > 1) {
             moveCounter();
             if (openCards[0].value === openCards[1].value) {
                 isMatch();
                 if (pairCount === 1) {
-                    pairCounter();
+                    completed();
                     restartGame();
                 }
             } else {
@@ -80,13 +74,13 @@ deck.addEventListener('click', function(e) {
         }
     }
 
-    // show card function
-    function displaySymbol(arg) {
+    // show selected card
+    function showCard(arg) {
         arg.classList.add('open', 'show');
         addCard(arg);
     };
 
-    // add card to 'openCards' function
+    // add card to openCards
     function addCard(arg) {
         let icon = arg.firstElementChild.classList;
         return openCards.push(icon);
@@ -120,7 +114,8 @@ deck.addEventListener('click', function(e) {
         moveCounterSpan.innerHTML = moveCount;
     }
 
-    function pairCounter() {
+    // game is completed
+    function completed() {
         setTimeout(function () {
             var successContainer = document.querySelector('.success-container');
             var successCount = document.querySelector('.success-count');
@@ -129,20 +124,23 @@ deck.addEventListener('click', function(e) {
         },300);
     }
 
+    // restart game
     function restartGame() {
         var restartButton = document.querySelector('.restart-button');
         restartButton.addEventListener('click', function (){
+            var eachCard = deck.querySelectorAll('.card'); /** this is the li array */
             var successContainer = document.querySelector('.success-container');
+
             successContainer.style.display = 'none';
-            // zero counter
             moveCounterSpan.innerHTML = 0;
-            // clear all cards
-            for (let i = 0; i < deck.children.length; i++) {
-                deck.children[i].classList.remove('match');
+            shuffle(cards);
+
+            for (i = 0; i < eachCard.length; i++) {
+                eachCard[i].classList.remove('match');
+                eachCard[i].firstElementChild.classList = 'fa ' + cards[i];
             }
             moveCount = 0;
             pairCount = 0;
-            initGame();
         });
     }
 
