@@ -21,6 +21,7 @@ var cards = [
 // global variables
 var deck = document.querySelector('.deck');
 var moveCounterSpan = document.querySelector('.moves');
+var restartButton = document.querySelector('.restart');
 var moveCount = 0;
 var pairCount = 0;
 var openCards = [];
@@ -72,7 +73,7 @@ deck.addEventListener('click', function(e) {
                     isMatch();
                     if (pairCount === 8) {
                         completed();
-                        restartGame();
+                        successContainer();
                     }
                 } else {
                     noMatch();
@@ -81,6 +82,15 @@ deck.addEventListener('click', function(e) {
         }
     }
 
+});
+
+/**
+ * restart during game
+ */
+restartButton.addEventListener('click', function() {
+    if(moveCount >= 1) {
+        restartGame();
+    }
 });
 
 // show selected card
@@ -132,22 +142,29 @@ function completed() {
     },300);
 }
 
-// restart game
-function restartGame() {
+// success container
+function successContainer() {
     var restartButton = document.querySelector('.restart-button');
     restartButton.addEventListener('click', function (){
-        var eachCard = deck.querySelectorAll('.card');
         var successContainer = document.querySelector('.success-container');
 
-        successContainer.style.display = 'none';
-        moveCounterSpan.innerHTML = 0;
-        shuffle(cards);
-
-        for (i = 0; i < eachCard.length; i++) {
-            eachCard[i].classList.remove('match');
-            eachCard[i].firstElementChild.classList = 'fa ' + cards[i];
-        }
-        moveCount = 0;
-        pairCount = 0;
+    successContainer.style.display = 'none';
+    restartGame();
     });
+}
+
+// restart game
+function restartGame() {
+    var eachCard = deck.querySelectorAll('.card');
+    
+    moveCounterSpan.innerHTML = 0;
+    shuffle(cards);
+
+    for (i = 0; i < eachCard.length; i++) {
+        eachCard[i].classList.remove('match');
+        eachCard[i].firstElementChild.classList = 'fa ' + cards[i];
+    }
+
+    moveCount = 0;
+    pairCount = 0;
 }
