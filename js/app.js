@@ -1,31 +1,15 @@
 // cards
-var cards = [
-    'fa-diamond',
-    'fa-paper-plane-o',
-    'fa-anchor',
-    'fa-bolt',
-    'fa-cube',
-    'fa-leaf',
-    'fa-bicycle',
-    'fa-bomb',
-    'fa-diamond',
-    'fa-paper-plane-o',
-    'fa-anchor',
-    'fa-bolt',
-    'fa-cube',
-    'fa-leaf',
-    'fa-bicycle',
-    'fa-bomb'
-];
+var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
 
 // global variables
 const deck = document.querySelector('.deck');
 const moveCounterSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
 const timerSpan = document.querySelector('.timerTime');
-const stars = document.querySelector('.stars');
+const stars = document.querySelector('.score-panel').firstElementChild;
 let moveCount = 0;
 let pairCount = 0;
+let starCount = 0;
 let openCards = [];
 
 // start game
@@ -85,7 +69,7 @@ deck.addEventListener('click', function(e) {
                 starRating();
                 if (openCards[0].value === openCards[1].value) {
                     isMatch();
-                    if (pairCount === 8) {
+                    if (pairCount === 1) {
                         completed();
                         successContainer();
                     }
@@ -98,11 +82,9 @@ deck.addEventListener('click', function(e) {
 
 });
 
-/**
- * restart during game
- */
+// restart during game
 restartButton.addEventListener('click', function() {
-    if(moveCount >= 1) {
+    if(moveCount >= 1 || openCards.length >= 1) {
         restartGame();
     }
 });
@@ -148,16 +130,41 @@ function moveCounter() {
 
 // star rating
 function starRating() {
-    if (moveCount > 5) {
+    if (moveCount > 10) {
         stars.children[2].firstElementChild.classList.remove('star-lit');
     }
-    if (moveCount > 10) {
+    if (moveCount > 15) {
         stars.children[1].firstElementChild.classList.remove('star-lit');
+    }
+    if (moveCount > 20) {
+        stars.children[0].firstElementChild.classList.remove('star-lit');
     }
 }
 
 // game is completed
 function completed() {
+    const successUl = document.getElementById('success-stars');
+    
+    function makeStars() {
+        const starLi = document.createElement('li');
+        const starI = document.createElement('i');
+        starI.classList = 'fa fa-star star-lit';
+        starLi.appendChild(starI);
+        successUl.appendChild(starLi);
+    }
+
+    // count the game stars
+    for (star of stars.children) {
+        if (star.firstElementChild.classList.contains('star-lit')) {
+            starCount += 1;
+        }
+    }
+
+    // success stars result
+    for (i = 0; i < starCount; i++) {
+        makeStars();
+    }
+
     setTimeout(function () {
         var successContainer = document.querySelector('.success-container');
         var successCount = document.querySelector('.success-count');
@@ -171,9 +178,8 @@ function successContainer() {
     var restartButton = document.querySelector('.restart-button');
     restartButton.addEventListener('click', function (){
         var successContainer = document.querySelector('.success-container');
-
-    successContainer.style.display = 'none';
-    restartGame();
+        successContainer.style.display = 'none';
+        restartGame();
     });
 }
 
@@ -184,11 +190,24 @@ function restartGame() {
     moveCounterSpan.innerHTML = 0;
     shuffle(cards);
 
+    // reload the deck
     for (i = 0; i < eachCard.length; i++) {
-        eachCard[i].classList.remove('match');
+        eachCard[i].classList.remove('match', 'show', 'open');
         eachCard[i].firstElementChild.classList = 'fa ' + cards[i];
+    }
+
+    // reload the stars
+    for (star of stars.children) {
+        if (star.firstElementChild.classList.contains('star-lit')) {
+            continue;
+        }
+        else {
+            star.firstElementChild.classList.add('star-lit');
+        }
     }
 
     moveCount = 0;
     pairCount = 0;
+    starCount = 0;
+    openCards = [];
 }

@@ -98,9 +98,18 @@ h1 {
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel .stars li, #success-stars li {
     list-style: none;
     display: inline-block;
+}
+
+#success-stars {
+    padding: 0;
+}
+
+#success-stars li {
+    padding: 0 7px;
+    font-size: 1.5em;
 }
 
 .score-panel .restart {
