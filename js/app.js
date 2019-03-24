@@ -19,30 +19,33 @@ var cards = [
 ];
 
 // global variables
-var deck = document.querySelector('.deck');
-var moveCounterSpan = document.querySelector('.moves');
-var restartButton = document.querySelector('.restart');
-var moveCount = 0;
-var pairCount = 0;
-var openCards = [];
+const deck = document.querySelector('.deck');
+const moveCounterSpan = document.querySelector('.moves');
+const restartButton = document.querySelector('.restart');
+const timerSpan = document.querySelector('.timerTime');
+const stars = document.querySelector('.stars');
+let moveCount = 0;
+let pairCount = 0;
+let openCards = [];
 
 // start game
 window.onload = function() {
     shuffle(cards);
-    for (i = 0; i < cards.length; i++) {
+    for (let card of cards) {
         var li = document.createElement('li');
         var icon = document.createElement('i');
         icon.classList.add('fa');
-        icon.classList.add(cards[i]);
+        icon.classList.add(card);
         li.classList.add('card');
         li.appendChild(icon);
         deck.appendChild(li);
     }
+    // timer();
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -54,6 +57,16 @@ function shuffle(array) {
 
     return array;
 }
+
+/**
+ * timer
+ */
+// function timer() {
+//         setInterval(function() {
+//             const time = new Date();
+//             timerSpan.innerHtml = time.toLocaleTimeString();
+//         }, 1000);
+// }
 
 /** 
  * capture click event on any card in deck
@@ -69,6 +82,7 @@ deck.addEventListener('click', function(e) {
             // check if cards match
             if (openCards.length > 1) {
                 moveCounter();
+                starRating();
                 if (openCards[0].value === openCards[1].value) {
                     isMatch();
                     if (pairCount === 8) {
@@ -100,13 +114,13 @@ function showCard(param) {
 
 // add card to openCards
 function addCard(param) {
-    var icon = param.firstElementChild.classList;
+    const icon = param.firstElementChild.classList;
     return openCards.push(icon);
 };
 
 // cards match
 function isMatch() {
-    for (const card of deck.children) {
+    for (let card of deck.children) {
         if (card.classList.contains('open')) {
             card.classList.add('match');
             card.classList.remove('open', 'show');
@@ -119,7 +133,7 @@ function isMatch() {
 // cards dont match
 function noMatch() {
     setTimeout(function () {
-        for (const card of deck.children) {
+        for (let card of deck.children) {
             card.classList.remove('open', 'show');
         }
         openCards = [];
@@ -130,6 +144,16 @@ function noMatch() {
 function moveCounter() {
     moveCount += 1;
     moveCounterSpan.innerHTML = moveCount;
+}
+
+// star rating
+function starRating() {
+    if (moveCount > 5) {
+        stars.children[2].firstElementChild.classList.remove('star-lit');
+    }
+    if (moveCount > 10) {
+        stars.children[1].firstElementChild.classList.remove('star-lit');
+    }
 }
 
 // game is completed

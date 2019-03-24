@@ -108,6 +108,10 @@ h1 {
     cursor: pointer;
 }
 
+.star-lit {
+    color: rgb(240, 183, 38);
+}
+
 /*
 * styles for the success modal
 */
