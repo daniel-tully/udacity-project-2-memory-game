@@ -52,29 +52,28 @@ deck.addEventListener('click', function(e) {
     if (openCards.length < 2) {
         const selection = e.target;
 
-        // Check if card is clicked twice
+        // Check if same card is clicked twice
         if (selection.classList.contains('show')) {
             return;
         } else {
             if (selection.classList.contains('card')) {
-                    showCard(selection);
-                    addCard(selection);
-        
-                    // check if cards match
-                    if (openCards.length > 1) {
-                        moveCounter();
-                        starRating();
-                        if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
-                            isMatch();
-                            if (pairCount === 8) {
-                                completed();
-                                successContainer();
-                            }
-                        } else {
-                            noMatch();
+                showCard(selection);
+                addCard(selection);
+    
+                // check if cards match
+                if (openCards.length > 1) {
+                    moveCounter();
+                    starRating();
+                    if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
+                        isMatch();
+                        if (pairCount === 8) {
+                            completed();
+                            successContainer();
                         }
+                    } else {
+                        noMatch();
                     }
-                
+                }
             }
         }
     }
