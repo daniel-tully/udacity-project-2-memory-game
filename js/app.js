@@ -24,8 +24,7 @@ window.onload = function() {
         li.appendChild(icon);
         deck.appendChild(li);
     }
-    // timer();
-}
+};
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -45,12 +44,7 @@ function shuffle(array) {
 /**
  * timer
  */
-// function timer() {
-//         setInterval(function() {
-//             const time = new Date();
-//             timerSpan.innerHtml = time.toLocaleTimeString();
-//         }, 1000);
-// }
+
 
 /** 
  * capture click event on any card in deck
@@ -69,7 +63,7 @@ deck.addEventListener('click', function(e) {
                 starRating();
                 if (openCards[0].value === openCards[1].value) {
                     isMatch();
-                    if (pairCount === 1) {
+                    if (pairCount === 8) {
                         completed();
                         successContainer();
                     }
@@ -92,13 +86,13 @@ restartButton.addEventListener('click', function() {
 // show selected card
 function showCard(param) {
     param.classList.add('open', 'show');
-};
+}
 
 // add card to openCards
 function addCard(param) {
     const icon = param.firstElementChild.classList;
     return openCards.push(icon);
-};
+}
 
 // cards match
 function isMatch() {
@@ -132,11 +126,9 @@ function moveCounter() {
 function starRating() {
     if (moveCount > 10) {
         stars.children[2].firstElementChild.classList.remove('star-lit');
-    }
-    if (moveCount > 15) {
+    } else if (moveCount > 15) {
         stars.children[1].firstElementChild.classList.remove('star-lit');
-    }
-    if (moveCount > 20) {
+    } else if (moveCount > 20) {
         stars.children[0].firstElementChild.classList.remove('star-lit');
     }
 }
@@ -144,26 +136,8 @@ function starRating() {
 // game is completed
 function completed() {
     const successUl = document.getElementById('success-stars');
-    
-    function makeStars() {
-        const starLi = document.createElement('li');
-        const starI = document.createElement('i');
-        starI.classList = 'fa fa-star star-lit';
-        starLi.appendChild(starI);
-        successUl.appendChild(starLi);
-    }
 
-    // count the game stars
-    for (star of stars.children) {
-        if (star.firstElementChild.classList.contains('star-lit')) {
-            starCount += 1;
-        }
-    }
-
-    // success stars result
-    for (i = 0; i < starCount; i++) {
-        makeStars();
-    }
+    successUl.innerHTML = stars.innerHTML;
 
     setTimeout(function () {
         var successContainer = document.querySelector('.success-container');
@@ -191,7 +165,7 @@ function restartGame() {
     shuffle(cards);
 
     // reload the deck
-    for (i = 0; i < eachCard.length; i++) {
+    for (let i = 0; i < eachCard.length; i++) {
         eachCard[i].classList.remove('match', 'show', 'open');
         eachCard[i].firstElementChild.classList = 'fa ' + cards[i];
     }
