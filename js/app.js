@@ -37,7 +37,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
@@ -53,23 +52,29 @@ deck.addEventListener('click', function(e) {
     if (openCards.length < 2) {
         const selection = e.target;
 
-        if (selection.classList.contains('card')) {
-            showCard(selection);
-            addCard(selection);
-
-            // check if cards match
-            if (openCards.length > 1) {
-                moveCounter();
-                starRating();
-                if (openCards[0].value === openCards[1].value) {
-                    isMatch();
-                    if (pairCount === 8) {
-                        completed();
-                        successContainer();
+        // Check if card is clicked twice
+        if (selection.classList.contains('show')) {
+            return;
+        } else {
+            if (selection.classList.contains('card')) {
+                    showCard(selection);
+                    addCard(selection);
+        
+                    // check if cards match
+                    if (openCards.length > 1) {
+                        moveCounter();
+                        starRating();
+                        if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
+                            isMatch();
+                            if (pairCount === 8) {
+                                completed();
+                                successContainer();
+                            }
+                        } else {
+                            noMatch();
+                        }
                     }
-                } else {
-                    noMatch();
-                }
+                
             }
         }
     }
@@ -90,8 +95,8 @@ function showCard(param) {
 
 // add card to openCards
 function addCard(param) {
-    const icon = param.firstElementChild.classList;
-    return openCards.push(icon);
+    const thisCard = param;
+    return openCards.push(thisCard);
 }
 
 // cards match
@@ -126,9 +131,11 @@ function moveCounter() {
 function starRating() {
     if (moveCount > 10) {
         stars.children[2].firstElementChild.classList.remove('star-lit');
-    } else if (moveCount > 15) {
+    }
+    if (moveCount > 15) {
         stars.children[1].firstElementChild.classList.remove('star-lit');
-    } else if (moveCount > 20) {
+    }
+    if (moveCount > 20) {
         stars.children[0].firstElementChild.classList.remove('star-lit');
     }
 }
