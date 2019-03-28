@@ -6,7 +6,7 @@ const deck = document.querySelector('.deck');
 const moveCounterSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
 const timerSpan = document.querySelector('.timerTime');
-const stars = document.querySelector('.score-panel').firstElementChild;
+const stars = document.querySelector('.score-panel').children;
 let moveCount = 0;
 let pairCount = 0;
 let starCount = 0;
@@ -102,7 +102,7 @@ function addCard(param) {
 function isMatch() {
     for (let card of deck.children) {
         if (card.classList.contains('open')) {
-            card.classList.add('match');
+            card.classList.add('match', 'enlarge');
             card.classList.remove('open', 'show');
         }
     }
@@ -129,13 +129,13 @@ function moveCounter() {
 // star rating
 function starRating() {
     if (moveCount > 10) {
-        stars.children[2].firstElementChild.classList.remove('star-lit');
+        stars[2].firstElementChild.classList.remove('star-lit');
     }
     if (moveCount > 15) {
-        stars.children[1].firstElementChild.classList.remove('star-lit');
+        stars[1].firstElementChild.classList.remove('star-lit');
     }
     if (moveCount > 20) {
-        stars.children[0].firstElementChild.classList.remove('star-lit');
+        stars[0].firstElementChild.classList.remove('star-lit');
     }
 }
 
@@ -177,7 +177,7 @@ function restartGame() {
     }
 
     // reload the stars
-    for (star of stars.children) {
+    for (star of stars) {
         if (star.firstElementChild.classList.contains('star-lit')) {
             continue;
         }
