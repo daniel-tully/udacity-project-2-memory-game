@@ -20,7 +20,7 @@ window.onload = function() {
         var icon = document.createElement('i');
         icon.classList.add('fa');
         icon.classList.add(card);
-        li.classList.add('card');
+        li.classList.add('card', 'flex', 'align', 'justify-center');
         li.appendChild(icon);
         deck.appendChild(li);
     }
@@ -56,7 +56,7 @@ deck.addEventListener('click', function(e) {
         if (selection.classList.contains('show')) {
             return;
         } else {
-            if (selection.classList.contains('card')) {
+            if (selection.tagName === 'LI') {
                 showCard(selection);
                 addCard(selection);
     

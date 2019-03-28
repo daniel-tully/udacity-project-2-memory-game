@@ -5,32 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:600|Orbitron" rel="stylesheet">
 </head>
 <body>
+    <!-- success modal -->
+    <div class="success-container">
+        <div class="success-modal">
+            <h1>Success!</h1>
+            <ul id="success-stars">
+            </ul>
+            <p>Congratulations you've finished the game in <span class="success-count"></span> moves.</p>
+            <button class="restart-button">Play again</button>
+        </div>
+    </div>
     <section class="header">
         <div class="container">
 
             <h1>Match em' all!</h1>
-            <div class="flex justify">
-                <div>Moves:</div>
-                <div>Time:</div>
-                <div>Stars:</div>
+            <div class="game-info flex justify align">
+                <div>Moves: <span class="game-info-number moves">0</span></div>
+                <div class="game-info-number">00:00</div>
+                <ul class="score-panel stars">
+                    <li><i class="fa fa-star star-lit"></i></li>
+                    <li><i class="fa fa-star star-lit"></i></li>
+                    <li><i class="fa fa-star star-lit"></i></li>
+                </ul>
+                <div class="restart">
+                    <i class="fa fa-repeat"></i>
+                </div>
             </div>
 
         </div>
         
     </section>
     <section class="game">
-        <div class="container">
-            <div>
-                <div></div>
+        <div class="container flex justify">
+            <div class="game-board">
+                <div class="deck flex justify wrap">
+                </div>
             </div>
-            <div>
-                <div></div>
+            <div class="sidebar">
+                <h2>Leaderboard</h2>
             </div>
         </div>
     </section>

@@ -3,12 +3,13 @@
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito', sans-serif;
+    background-color: #f5f5f5;
 }
 
 .flex {
@@ -16,13 +17,100 @@ body {
 }
 .justify {
     justify-content: space-between;
+}
+.justify-center {
+    justify-content: center;
+}
+.align {
     align-items: center;
+}
+.wrap {
+    flex-wrap: wrap;
 }
 
 /* typography */
 h1 {
     text-align: center;
 }
+h2 {
+    font-size: 1.2em;
+}
+
+/* misc */
+.game-info {
+    margin: 40px 0;
+    background-color: white;
+    padding: 15px 40px;
+    border-radius: 4px;
+}
+.game-info-number {
+    font-size: 1.5em;
+    font-family: 'Orbitron', sans-serif;
+}
+.score-panel li {
+    list-style: none;
+    display: inline-block;
+}
+.star-lit {
+    color: rgb(240, 183, 38);
+}
+.game {
+    margin: 60px 0;
+}
+.deck li {
+    list-style: none;
+}
+.card {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+.card li {
+    text-align: center;
+}
+.open, .show {
+    background-color: aquamarine;
+}
+.match {
+    background-color: rgb(240, 183, 38);
+}
+/* sidebar */
+.sidebar {
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 4px;
+}
+.sidebar h2 {
+    margin: 0;
+}
+
+/*
+* styles for the success modal
+*/
+.success-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.success-count {
+    font-weight: bold;
+}
+
+.restart-button {
+    padding: 7px 10px;
+}
+
 
 @media only screen and (min-width: 400px) {
 }
@@ -30,5 +118,11 @@ h1 {
 @media only screen and (min-width: 800px) {
     body {
         margin: 0;
+    }
+    .game-board {
+        width: 700px;
+    }
+    .sidebar {
+        width: 250px;
     }
 }
