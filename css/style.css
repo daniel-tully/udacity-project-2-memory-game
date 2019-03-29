@@ -2,6 +2,26 @@
     box-sizing: border-box;
 }
 
+/* normalizers */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  border: none;
+}
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -132,8 +152,12 @@ h2 {
     height: 100vh;
     z-index: 1;
     text-align: center;
-    background-color: rgba(240, 183, 38, 0.5);
-    color: white;
+}
+
+.success-modal {
+    padding: 60px;
+    background-color: #f9e735;
+    border-radius: 10px;
 }
 
 .success-count {
@@ -141,7 +165,11 @@ h2 {
 }
 
 .restart-button {
-    padding: 7px 10px;
+    padding: 12px 15px;
+    background-color: #932765;
+    border-radius: 4px;
+    color: white;
+    margin-top: 20px;
 }
 
 

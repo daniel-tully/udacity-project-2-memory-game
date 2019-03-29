@@ -143,14 +143,14 @@ function starRating() {
 function completed() {
     const successUl = document.getElementById('success-stars');
 
-    successUl.innerHTML = stars.innerHTML;
+        successUl.innerHTML = stars[0].parentNode.innerHTML;
 
     setTimeout(function () {
         var successContainer = document.querySelector('.success-container');
         var successCount = document.querySelector('.success-count');
         successCount.innerHTML = moveCount;
         successContainer.style.display = 'flex';
-    },300);
+    },1000);
 }
 
 // success container
