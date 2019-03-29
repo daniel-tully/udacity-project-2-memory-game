@@ -172,7 +172,7 @@ function restartGame() {
 
     // reload the deck
     for (let i = 0; i < eachCard.length; i++) {
-        eachCard[i].classList.remove('match', 'show', 'open');
+        eachCard[i].classList.remove('match', 'show', 'open', 'enlarge');
         eachCard[i].firstElementChild.classList = 'fa ' + cards[i];
     }
 
