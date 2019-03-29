@@ -8,8 +8,8 @@
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
-    background-color: #cfd8dc;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #33ded2;
 }
 
 .flex {
@@ -30,15 +30,18 @@ body {
 
 /* animations */
 @keyframes cardEnlarger {
-    0%, 100% {
-        transform: scale(1);
+    0% {
+        transform: scale(1) rotate(-360deg);
     }
     50% {
-        transform: scale(1.3);
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 .enlarge {
-    animation: cardEnlarger 0.5s 1;
+    animation: cardEnlarger 0.75s 1;
 }
 
 /* typography */
@@ -46,19 +49,20 @@ h1 {
     text-align: center;
 }
 h2 {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    font-weight: normal;
 }
 
 /* misc */
 .game-info {
     margin: 40px 0;
-    background-color: white;
     padding: 15px 40px;
     border-radius: 4px;
+    background-color: #f9e735;
+    color: #932765;
 }
 .game-info-number {
     font-size: 1.5em;
-    font-family: 'Orbitron', sans-serif;
 }
 .score-panel li {
     list-style: none;
@@ -79,30 +83,40 @@ h2 {
 .card {
     width: 150px;
     height: 150px;
-    background-color: white;
-    border-radius: 4px;
+    background-color: #125c56;
+    border-radius: 6px;
     margin-bottom: 20px;
     font-size: 0;
     position: relative;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
 .card li {
     text-align: center;
 }
 .card .open, .show {
-    background-color: aquamarine;
-    font-size: 2em;
+    background-color: #f9e735;
+    font-size: 2.3em;
 }
 .match {
-    background-color: rgb(240, 183, 38);
-    font-size: 2em;
+    background-color: #932765;
+    color: #f9e735;
+    font-size: 2.3em;
 }
 /* sidebar */
 .sidebar {
-    background-color: white;
-    padding: 15px 20px;
-    border-radius: 4px;
+    color: #932765;
 }
-.sidebar h2 {
+.sidebar-header {
+    background-color: #f9e735;
+    padding: 15px 20px;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.sidebar-content {
+    padding: 15px 20px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.sidebar-header h2 {
     margin: 0;
 }
 
@@ -118,7 +132,7 @@ h2 {
     height: 100vh;
     z-index: 1;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(240, 183, 38, 0.5);
     color: white;
 }
 

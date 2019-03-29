@@ -18,7 +18,7 @@ window.onload = function() {
     for (let card of cards) {
         var li = document.createElement('li');
         var icon = document.createElement('i');
-        icon.classList.add('fa');
+        icon.classList.add('fa'); // add 'fa-question-circle'
         icon.classList.add(card);
         li.classList.add('card', 'flex', 'align', 'justify-center');
         li.appendChild(icon);
@@ -56,7 +56,7 @@ deck.addEventListener('click', function(e) {
         if (selection.classList.contains('show')) {
             return;
         } else {
-            if (selection.tagName === 'LI') {
+            if (selection.nodeName === 'LI') {
                 showCard(selection);
                 addCard(selection);
     
