@@ -30,6 +30,7 @@ button,
 body {
     font-family: 'Ubuntu', sans-serif;
     background-color: #33ded2;
+    color: #932765;
 }
 
 .flex {
@@ -65,25 +66,45 @@ body {
 }
 
 /* typography */
-h1 {
+.header h1 {
+    display: inline;
     text-align: center;
-    margin-top: 0;
+    margin: 0;
+    color: #f9e735;
+}
+.main-title i {
+    display: inline;
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: #f9e735;
 }
 h2 {
     font-size: 1.1em;
     font-weight: normal;
 }
+.game-info-number {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* columns */
+.col-3 {
+    text-align: center;
+}
 
 /* misc */
+.main-title-inner {
+    padding: 8px 18px;
+    background-color: #932765;
+    border-radius: 30px;
+}
 .header {
     padding-top: 60px;
 }
 .game-info {
     margin: 40px 0;
-    padding: 15px 40px;
+    padding: 15px 0;
     border-radius: 4px;
     background-color: #f9e735;
-    color: #932765;
 }
 .game-info-number {
     font-size: 1.5em;
@@ -131,16 +152,18 @@ h2 {
 }
 /* sidebar */
 .sidebar {
-    color: #932765;
+    color: #f9e735;
 }
 .sidebar-header {
-    background-color: #f9e735;
+    background-color: #932765;
     padding: 15px 20px;
     border-radius: 4px 4px 0 0;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
 .sidebar-content {
     padding: 15px 20px;
+    background-color: #f9e735;
+    border-radius: 0 0 4px 4px;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
 .sidebar-header h2 {
@@ -190,6 +213,9 @@ h2 {
     }
     .game-board {
         width: 700px;
+    }
+    .col-3 {
+        width: 25%;
     }
     .sidebar {
         width: 250px;

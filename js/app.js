@@ -5,7 +5,7 @@ var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
 const deck = document.querySelector('.deck');
 const moveCounterSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
-const timerSpan = document.querySelector('.timerTime');
+const timerSpan = document.querySelector('.timer-time');
 const stars = document.querySelector('.score-panel').children;
 let moveCount = 0;
 let pairCount = 0;
@@ -24,6 +24,7 @@ window.onload = function() {
         li.appendChild(icon);
         deck.appendChild(li);
     }
+    timer();
 };
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -66,7 +67,7 @@ deck.addEventListener('click', function(e) {
                     starRating();
                     if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
                         isMatch();
-                        if (pairCount === 1) {
+                        if (pairCount === 8) {
                             completed();
                             successContainer();
                         }
@@ -79,6 +80,26 @@ deck.addEventListener('click', function(e) {
     }
 
 });
+
+// timer
+function timer() {
+    let seconds = 0;
+    let minutes = 0;
+    let zeroSec;
+    let zeroMin;
+    setInterval(() => {
+        (seconds < 9) ? zeroSec = 0 : zeroSec = '';
+        if (seconds < 59) {
+            seconds += 1;
+        } else {
+            minutes += 1;
+            seconds = 0;
+            zeroSec = 0;
+        }
+        (minutes <= 9) ? zeroMin = 0 : zeroMin = '';
+        timerSpan.textContent = `${zeroMin}${minutes}:${zeroSec}${seconds}`;
+    }, 1000);
+}
 
 // restart during game
 restartButton.addEventListener('click', function() {
@@ -193,4 +214,5 @@ function restartGame() {
     pairCount = 0;
     starCount = 0;
     openCards = [];
+    timer();
 }

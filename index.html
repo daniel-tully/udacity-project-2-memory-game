@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron|Ubuntu" rel="stylesheet">
 </head>
 <body>
     <!-- success modal -->
@@ -22,17 +22,21 @@
     </div>
     <section class="header">
         <div class="container">
-
-            <h1>Match em' all!</h1>
+            <div class="main-title flex justify-center align">
+                <div class="main-title-inner align">
+                    <i class="fa fa-question-circle"></i>
+                    <h1>Matching Game</h1>
+                </div>
+            </div>
             <div class="game-info flex justify align">
-                <div>Moves: <span class="game-info-number moves">O</span></div>
-                <div class="game-info-number">OO:OO</div>
-                <ul class="score-panel stars">
+                <div class="col-3">Moves: <span class="game-info-number moves">0</span></div>
+                <div class="timer-time game-info-number col-3">00:00</div>
+                <ul class="score-panel stars col-3">
                     <li><i class="fa fa-star star-lit"></i></li>
                     <li><i class="fa fa-star star-lit"></i></li>
                     <li><i class="fa fa-star star-lit"></i></li>
                 </ul>
-                <div class="restart">
+                <div class="restart col-3">
                     <i class="fa fa-repeat"></i>
                 </div>
             </div>
