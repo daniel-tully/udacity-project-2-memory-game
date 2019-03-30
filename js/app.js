@@ -1,7 +1,11 @@
-// cards
+/**
+ * cards
+ */
 var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
 
-// global variables
+/**
+ * global variables
+ */
 const deck = document.querySelector('.deck');
 const moveCounterSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
@@ -11,8 +15,16 @@ let moveCount = 0;
 let pairCount = 0;
 let starCount = 0;
 let openCards = [];
+// timer variables
+let seconds = 0;
+let minutes = 0;
+let zeroSec;
+let zeroMin;
+let timerObj;
 
-// start game
+/**
+ * start game
+ */
 window.onload = function() {
     shuffle(cards);
     for (let card of cards) {
@@ -24,10 +36,13 @@ window.onload = function() {
         li.appendChild(icon);
         deck.appendChild(li);
     }
-    timer();
+    startTimer();
 };
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+/**
+ * Shuffle function from http://stackoverflow.com/a/2450976
+ * @param {array} array is the cards 
+ */
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -42,21 +57,18 @@ function shuffle(array) {
 }
 
 /**
- * timer
- */
-
-
-/** 
  * capture click event on any card in deck
-*/
+ */
 deck.addEventListener('click', function(e) {
     if (openCards.length < 2) {
         const selection = e.target;
 
-        // Check if same card is clicked twice
+        // check if same card is clicked twice
         if (selection.classList.contains('show')) {
             return;
         } else {
+
+            // check if target is card li
             if (selection.nodeName === 'LI') {
                 showCard(selection);
                 addCard(selection);
@@ -65,7 +77,7 @@ deck.addEventListener('click', function(e) {
                 if (openCards.length > 1) {
                     moveCounter();
                     starRating();
-                    if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
+                    if (openCards[0].classList.value === openCards[1].classList.value) {
                         isMatch();
                         if (pairCount === 8) {
                             completed();
@@ -75,51 +87,61 @@ deck.addEventListener('click', function(e) {
                         noMatch();
                     }
                 }
+
             }
+
         }
     }
-
 });
 
-// timer
+/**
+ * add timer interval
+ */
+function startTimer() {
+    timerObj = setInterval(timer, 1000);
+}
+/**
+ * timer action
+ */
 function timer() {
-    let seconds = 0;
-    let minutes = 0;
-    let zeroSec;
-    let zeroMin;
-    setInterval(() => {
-        (seconds < 9) ? zeroSec = 0 : zeroSec = '';
-        if (seconds < 59) {
-            seconds += 1;
-        } else {
-            minutes += 1;
-            seconds = 0;
-            zeroSec = 0;
-        }
-        (minutes <= 9) ? zeroMin = 0 : zeroMin = '';
-        timerSpan.textContent = `${zeroMin}${minutes}:${zeroSec}${seconds}`;
-    }, 1000);
+    (seconds < 9) ? zeroSec = 0 : zeroSec = '';
+    if (seconds < 59) {
+        seconds += 1;
+    } else {
+        minutes += 1;
+        seconds = 0;
+        zeroSec = 0;
+    }
+    (minutes <= 9) ? zeroMin = 0 : zeroMin = '';
+    timerSpan.textContent = `${zeroMin}${minutes}:${zeroSec}${seconds}`;
 }
 
-// restart during game
-restartButton.addEventListener('click', function() {
-    if(moveCount >= 1 || openCards.length >= 1) {
-        restartGame();
-    }
+/**
+ * restart during game
+ */
+restartButton.addEventListener('click', () => {
+    restartGame();
 });
 
-// show selected card
-function showCard(param) {
-    param.classList.add('open', 'show');
+/**
+ * show selected card
+ * @param {node} selection is the target clicked
+ */
+function showCard(selection) {
+    selection.classList.add('open', 'show');
 }
 
-// add card to openCards
-function addCard(param) {
-    const thisCard = param;
-    return openCards.push(thisCard);
+/**
+ * add card to openCards
+ * @param {node} selection is the target clicked
+ */
+function addCard(selection) {
+    return openCards.push(selection.firstElementChild);
 }
 
-// cards match
+/**
+ * cards match
+ */
 function isMatch() {
     for (let card of deck.children) {
         if (card.classList.contains('open')) {
@@ -131,9 +153,12 @@ function isMatch() {
     pairCount += 1;
 }
 
-// cards dont match
+/**
+ * cards dont match
+ */
 function noMatch() {
-    setTimeout(function () {
+    // timing to allow openCards comparison
+    setTimeout(function(){
         for (let card of deck.children) {
             card.classList.remove('open', 'show');
         }
@@ -160,16 +185,19 @@ function starRating() {
     }
 }
 
-// game is completed
+/**
+ * game is completed
+ */
 function completed() {
     const successUl = document.getElementById('success-stars');
 
-    const start = performance.now()
-    successUl.innerHTML = stars[0].parentNode.innerHTML;
-    const finish = performance.now()
-    console.log('This code block took ' + (finish - start) + ' milliseconds.');
+    // clear timer
+    clearInterval(timerObj);
+    timerSpan.textContent = '00:00';
 
-    setTimeout(function () {
+    successUl.innerHTML = stars[0].parentNode.innerHTML;
+
+    setTimeout( () => {
         var successContainer = document.querySelector('.success-container');
         var successCount = document.querySelector('.success-count');
         successCount.innerHTML = moveCount;
@@ -180,7 +208,7 @@ function completed() {
 // success container
 function successContainer() {
     var restartButton = document.querySelector('.restart-button');
-    restartButton.addEventListener('click', function (){
+    restartButton.addEventListener('click', () => {
         var successContainer = document.querySelector('.success-container');
         successContainer.style.display = 'none';
         restartGame();
@@ -210,9 +238,18 @@ function restartGame() {
         }
     }
 
+    // reset values
     moveCount = 0;
     pairCount = 0;
     starCount = 0;
     openCards = [];
-    timer();
+
+    // clear timer
+    clearInterval(timerObj);
+    timerSpan.textContent = '00:00';
+    seconds = 0;
+    minutes = 0;
+
+    // start timer
+    startTimer();
 }
