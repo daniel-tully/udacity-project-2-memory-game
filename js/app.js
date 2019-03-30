@@ -66,7 +66,7 @@ deck.addEventListener('click', function(e) {
                     starRating();
                     if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
                         isMatch();
-                        if (pairCount === 8) {
+                        if (pairCount === 1) {
                             completed();
                             successContainer();
                         }
@@ -143,7 +143,10 @@ function starRating() {
 function completed() {
     const successUl = document.getElementById('success-stars');
 
-        successUl.innerHTML = stars[0].parentNode.innerHTML;
+    const start = performance.now()
+    successUl.innerHTML = stars[0].parentNode.innerHTML;
+    const finish = performance.now()
+    console.log('This code block took ' + (finish - start) + ' milliseconds.');
 
     setTimeout(function () {
         var successContainer = document.querySelector('.success-container');

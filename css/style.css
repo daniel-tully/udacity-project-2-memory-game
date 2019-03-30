@@ -67,6 +67,7 @@ body {
 /* typography */
 h1 {
     text-align: center;
+    margin-top: 0;
 }
 h2 {
     font-size: 1.1em;
@@ -74,6 +75,9 @@ h2 {
 }
 
 /* misc */
+.header {
+    padding-top: 60px;
+}
 .game-info {
     margin: 40px 0;
     padding: 15px 40px;
@@ -84,9 +88,12 @@ h2 {
 .game-info-number {
     font-size: 1.5em;
 }
-.score-panel li {
+.stars li, #success-stars li {
     list-style: none;
     display: inline-block;
+}
+.stars, #success-stars {
+    padding: 0;
 }
 .star-lit {
     color: rgb(240, 183, 38);
@@ -158,6 +165,7 @@ h2 {
     padding: 60px;
     background-color: #f9e735;
     border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2)
 }
 
 .success-count {
