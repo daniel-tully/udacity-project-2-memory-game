@@ -1,5 +1,5 @@
-/**
- * cards
+/*
+ * Create a list that holds all of your cards
  */
 var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
 
@@ -7,10 +7,10 @@ var cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
  * global variables
  */
 const deck = document.querySelector('.deck');
-const moveCounterSpan = document.querySelector('.moves');
 const restartButton = document.querySelector('.restart');
 const timerSpan = document.querySelector('.timer-time');
 const stars = document.querySelector('.score-panel').children;
+// starting values
 let moveCount = 0;
 let pairCount = 0;
 let starCount = 0;
@@ -55,6 +55,19 @@ function shuffle(array) {
     }
     return array;
 }
+
+
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
+
 
 /**
  * capture click event on any card in deck
@@ -154,20 +167,20 @@ function isMatch() {
 }
 
 /**
- * cards dont match
+ * cards dont match - remove from openCards array
  */
 function noMatch() {
-    // timing to allow openCards comparison
     setTimeout(function(){
         for (let card of deck.children) {
             card.classList.remove('open', 'show');
         }
         openCards = [];
-    }, 1000);
+    }, 800);
 }
 
 // count player's moves
 function moveCounter() {
+    const moveCounterSpan = document.querySelector('.moves');
     moveCount += 1;
     moveCounterSpan.innerHTML = moveCount;
 }
@@ -198,18 +211,18 @@ function completed() {
     successUl.innerHTML = stars[0].parentNode.innerHTML;
 
     setTimeout( () => {
-        var successContainer = document.querySelector('.success-container');
-        var successCount = document.querySelector('.success-count');
+        const successContainer = document.querySelector('.success-container');
+        const successCount = document.querySelector('.success-count');
         successCount.innerHTML = moveCount;
         successContainer.style.display = 'flex';
-    },1000);
+    },800);
 }
 
 // success container
 function successContainer() {
-    var restartButton = document.querySelector('.restart-button');
+    const restartButton = document.querySelector('.restart-button');
     restartButton.addEventListener('click', () => {
-        var successContainer = document.querySelector('.success-container');
+        const successContainer = document.querySelector('.success-container');
         successContainer.style.display = 'none';
         restartGame();
     });
@@ -217,7 +230,8 @@ function successContainer() {
 
 // restart game
 function restartGame() {
-    var eachCard = deck.querySelectorAll('.card');
+    const eachCard = deck.querySelectorAll('.card');
+    const moveCounterSpan = document.querySelector('.moves');
     
     moveCounterSpan.innerHTML = 0;
     shuffle(cards);
