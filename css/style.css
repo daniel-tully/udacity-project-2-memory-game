@@ -12,6 +12,7 @@ textarea {
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+  border: none;
 }
 
 button,
@@ -19,7 +20,13 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
-  border: none;
+}
+
+input {
+    height: 40px;
+    border-radius: 4px;
+    padding: 10px;
+    margin-left: 10px;
 }
 
 .container {
@@ -104,6 +111,19 @@ h2 {
 }
 
 /* misc */
+
+.player-details {
+    background-color: #33ded2;
+}
+
+.player-details-form {
+    margin-top: 40px;
+}
+
+.begin-btn {
+    margin-left: 10px;
+}
+
 .main-title-inner {
     padding: 8px 18px;
     background-color: #932765;
@@ -203,8 +223,7 @@ h2 {
 
 /* styles for the success modal */
 
-.success-container {
-    display: none;
+.modal-container {
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -214,7 +233,15 @@ h2 {
     text-align: center;
 }
 
-.success-modal {
+.modal-open {
+    display: flex;
+}
+
+.modal-closed {
+    display: none;
+}
+
+.modal {
     padding: 60px;
     background-color: #f9e735;
     border-radius: 10px;
@@ -225,12 +252,11 @@ h2 {
     font-weight: bold;
 }
 
-.restart-button {
+.btn {
     padding: 12px 15px;
     background-color: #932765;
     border-radius: 4px;
     color: white;
-    margin-top: 20px;
 }
 
 

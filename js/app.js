@@ -6,20 +6,22 @@ const query = (() => {
     const restartIcon = document.querySelector('.restart');
     const timerSpan = document.querySelector('.timer-time');
     const stars = document.querySelector('.score-panel').children;
+    const playerDetails = document.querySelector('.player-details');
+    const beginButton = playerDetails.querySelector('.begin-btn');
 
     return {
         deck: deck,
         restartIcon: restartIcon,
         timerSpan: timerSpan,
-        stars: stars
+        stars: stars,
+        playerDetails: playerDetails,
+        beginButton: beginButton
     };
 })();
 
 /**
  * module - values
  */
-const start = performance.now()
-// place code here
 const nums = (() => {
     let moveCount = 0;
     let pairCount = 0;
@@ -41,8 +43,6 @@ const nums = (() => {
         timerObj: timerObj,
     };
 })();
-const finish = performance.now()
-console.log('This code block took ' + (finish - start) + ' milliseconds.');
 
 /**
  * module - arrays
@@ -50,18 +50,31 @@ console.log('This code block took ' + (finish - start) + ' milliseconds.');
 const arr = (() => {
     let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
     let openCards = [];
+    let players = [];
 
     return {
         cards: cards,
-        openCards: openCards
+        openCards: openCards,
+        players: players
     };
 })();
 
 /**
  * start game
  */
-window.onload = () => {
+query.beginButton.addEventListener('click',  (e) => {
+    e.preventDefault();
+
+    // get player name input value
+    const playerName = query.playerDetails.querySelector('#first-name').value;
+
+    // push player into players array using createPlayer class
+    arr.players.push( new createPlayer(playerName));
+
+    query.playerDetails.classList.replace('modal-open', 'modal-closed');
+
     shuffle(arr.cards);
+
     for (let card of arr.cards) {
         const li = document.createElement('li');
         const icon = document.createElement('i');
@@ -72,7 +85,17 @@ window.onload = () => {
         query.deck.appendChild(li);
     }
     startTimer();
-};
+});
+
+/**
+ * createPlayer class
+ */
+class createPlayer {
+    constructor (value) {
+        this.name = value;
+        this.score = 0;
+    }
+}
 
 /**
  * Shuffle function from http://stackoverflow.com/a/2450976
@@ -250,7 +273,7 @@ function completed() {
 
         timeAmount.innerHTML = `${showMins} ${nums.seconds} seconds`;
         successCount.innerHTML = nums.moveCount;
-        successContainer.style.display = 'flex';
+        successContainer.classList.replace('modal-closed', 'modal-open');
     },800);
 }
 
@@ -258,10 +281,10 @@ function completed() {
  * success container
  */
 function successContainer() {
-    const restartButton = document.querySelector('.restart-button');
+    const restartButton = document.querySelector('.restart-btn');
     restartButton.addEventListener('click', () => {
         const successContainer = document.querySelector('.success-container');
-        successContainer.style.display = 'none';
+        successContainer.classList.replace('modal-open', 'modal-closed');
         restartGame();
     });
 }
