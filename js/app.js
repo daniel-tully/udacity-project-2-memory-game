@@ -18,6 +18,8 @@ const query = (() => {
 /**
  * module - values
  */
+const start = performance.now()
+// place code here
 const nums = (() => {
     let moveCount = 0;
     let pairCount = 0;
@@ -27,7 +29,7 @@ const nums = (() => {
     let zeroSec;
     let zeroMin;
     let timerObj;
-
+    
     return {
         moveCount: moveCount,
         pairCount: pairCount,
@@ -39,6 +41,8 @@ const nums = (() => {
         timerObj: timerObj,
     };
 })();
+const finish = performance.now()
+console.log('This code block took ' + (finish - start) + ' milliseconds.');
 
 /**
  * module - arrays
@@ -110,7 +114,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 8) {
+                        if (nums.pairCount === 1) {
                             completed();
                             successContainer();
                         }
@@ -231,9 +235,15 @@ function completed() {
         const successCount = document.querySelector('.success-count');
         const timeAmount = document.querySelector('.time-amount');
         let showMins;
+        let s;
 
         if (nums.minutes >= 1) {
-            showMins = nums.minutes + ' minutes and';
+            if(nums.minutes > 1) {
+                s = 's';
+            } else {
+                s = '';
+            }
+            showMins = `${nums.minutes} minute${s} and`;
         } else {
             showMins = '';
         }

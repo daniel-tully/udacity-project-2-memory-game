@@ -36,52 +36,64 @@ body {
 .flex {
     display: flex;
 }
+
 .justify {
     justify-content: space-between;
 }
+
 .justify-center {
     justify-content: center;
 }
+
 .align {
     align-items: center;
 }
+
 .wrap {
     flex-wrap: wrap;
 }
 
 /* animations */
 @keyframes cardEnlarger {
+
     0% {
         transform: scale(1) rotate(-360deg);
     }
+
     50% {
         transform: scale(1.2);
     }
+
     100% {
         transform: scale(1);
     }
 }
+
 .enlarge {
     animation: cardEnlarger 0.75s 1;
 }
 
 /* typography */
+
 .header h1 {
     display: inline;
     text-align: center;
     margin: 0;
     color: #f9e735;
 }
+
 .main-title i {
     display: inline;
     font-size: 1.5em;
     margin-right: 10px;
     color: #f9e735;
 }
+
 h2 {
     font-size: 1.1em;
     font-weight: normal;
 }
+
 .game-info-number {
     font-family: 'Orbitron', sans-serif;
 }
@@ -97,37 +109,48 @@ h2 {
     background-color: #932765;
     border-radius: 30px;
 }
+
 .header {
     padding-top: 60px;
 }
+
 .game-info {
     margin: 40px 0;
     padding: 15px 0;
     border-radius: 4px;
     background-color: #f9e735;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
 .game-info-number {
     font-size: 1.5em;
 }
+
 .stars li, #success-stars li {
     list-style: none;
     display: inline-block;
 }
+
 .stars, #success-stars {
     padding: 0;
 }
+
 .star-lit {
     color: rgb(240, 183, 38);
 }
+
 .game {
     margin: 60px 0;
 }
+
 .deck {
     transition: 0.4s;
 }
+
 .deck li {
     list-style: none;
 }
+
 .card {
     width: 150px;
     height: 150px;
@@ -138,41 +161,48 @@ h2 {
     position: relative;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
 .card li {
     text-align: center;
 }
+
 .card .open, .show {
     background-color: #f9e735;
     font-size: 2.3em;
 }
+
 .match {
     background-color: #932765;
     color: #f9e735;
     font-size: 2.3em;
 }
+
 /* sidebar */
+
 .sidebar {
     color: #f9e735;
 }
+
 .sidebar-header {
     background-color: #932765;
     padding: 15px 20px;
     border-radius: 4px 4px 0 0;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
 .sidebar-content {
     padding: 15px 20px;
     background-color: #f9e735;
     border-radius: 0 0 4px 4px;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
 .sidebar-header h2 {
     margin: 0;
 }
 
-/*
-* styles for the success modal
-*/
+/* styles for the success modal */
+
 .success-container {
     display: none;
     justify-content: center;
@@ -208,16 +238,21 @@ h2 {
 }
 
 @media only screen and (min-width: 800px) {
+
     body {
         margin: 0;
     }
+
     .game-board {
         width: 700px;
     }
+
     .col-3 {
         width: 25%;
     }
+
     .sidebar {
         width: 250px;
     }
+
 }
