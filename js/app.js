@@ -71,6 +71,10 @@ query.beginButton.addEventListener('click',  (e) => {
     // push player into players array using createPlayer class
     arr.players.push( new createPlayer(playerName));
 
+    // get player
+    let activeUser = document.querySelector('.active-user');
+
+    // close modal
     query.playerDetails.classList.replace('modal-open', 'modal-closed');
 
     shuffle(arr.cards);
@@ -84,6 +88,7 @@ query.beginButton.addEventListener('click',  (e) => {
         li.appendChild(icon);
         query.deck.appendChild(li);
     }
+    activeUser.innerText = arr.players[0].name;
     startTimer();
 });
 
