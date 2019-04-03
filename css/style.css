@@ -111,6 +111,15 @@ h2 {
 }
 
 /* columns */
+
+.game-board {
+    width: 100%;
+}
+
+.sidebar {
+    width: 100%;
+}
+
 .col-3 {
     text-align: center;
 }
@@ -130,17 +139,18 @@ h2 {
 }
 
 .main-title-inner {
+    display: inline-block;
     padding: 8px 18px;
     background-color: #932765;
     border-radius: 30px;
 }
 
 .header {
-    padding-top: 60px;
+    padding-top: 20px;
 }
 
 .game-info {
-    margin: 40px 0;
+    margin: 20px 0;
     padding: 15px 0;
     border-radius: 4px;
     background-color: #f9e735;
@@ -165,7 +175,7 @@ h2 {
 }
 
 .game {
-    margin: 60px 0;
+    margin: 20px 0;
 }
 
 .deck {
@@ -177,11 +187,10 @@ h2 {
 }
 
 .card {
-    width: 150px;
-    height: 150px;
+    width: 24%;
     background-color: #125c56;
     border-radius: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 0;
     position: relative;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
@@ -274,8 +283,19 @@ h2 {
         margin: 0;
     }
 
+    .main-title {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+    }
+
+    .game .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .game-board {
-        width: 700px;
+        width: 65%;
     }
 
     .col-3 {
@@ -283,7 +303,7 @@ h2 {
     }
 
     .sidebar {
-        width: 250px;
+        width: 30%;
     }
 
 }
