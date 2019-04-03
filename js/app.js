@@ -8,6 +8,7 @@ const query = (() => {
     const stars = document.querySelector('.score-panel').children;
     const playerDetails = document.querySelector('.player-details');
     const beginButton = playerDetails.querySelector('.begin-btn');
+    const sideBarUl = document.querySelector('.leader-ul');
 
     return {
         deck: deck,
@@ -144,7 +145,7 @@ query.deck.addEventListener('click', (e) => {
                         isMatch();
                         if (nums.pairCount === 1) {
                             completed();
-                            successContainer();
+                            successModal();
                         }
                     } else {
                         noMatch();
@@ -251,13 +252,13 @@ function starRating() {
 function completed() {
     const successUl = document.getElementById('success-stars');
 
-
     // clear timer
     clearInterval(nums.timerObj);
 
+    // load stars rating into success modal
     successUl.innerHTML = query.stars[0].parentNode.innerHTML;
 
-    // congrats popup
+    // load time into success modal
     setTimeout( () => {
         const successContainer = document.querySelector('.success-container');
         const successCount = document.querySelector('.success-count');
@@ -280,12 +281,31 @@ function completed() {
         successCount.innerHTML = nums.moveCount;
         successContainer.classList.replace('modal-closed', 'modal-open');
     },800);
+
+    // add player name and time to leaderboard
+    function el(_type, _class) {
+        const element = document.createElement(_type);
+        element.classList.add(_class);
+        return element;
+    }
+
+    const leaderLi = el('LI', 'leader-li flex justify align');
+    const leaderName = el('SPAN', 'leader-name');
+    const leaderTime = el('SPAN', 'leader-time');
+
+    leaderName.innerText = arr.players[0];
+    leaderTime.innerText = `${nums.minutes}:${nums.seconds}`;
+    
+    leaderLi.appendChild(leaderName);
+    leaderLi.appendChild(leaderTime);
+    query.sideBarUl.appendChild(leaderLi);
+
 }
 
 /**
- * success container
+ * success modal
  */
-function successContainer() {
+function successModal() {
     const restartButton = document.querySelector('.restart-btn');
     restartButton.addEventListener('click', () => {
         const successContainer = document.querySelector('.success-container');

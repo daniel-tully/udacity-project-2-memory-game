@@ -204,8 +204,20 @@ h2 {
 
 /* sidebar */
 
-.sidebar {
-    color: #f9e735;
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 7px 12px;
+    background-color: #faf846;
+    margin-bottom: 6px;
+    border-radius: 15px;
+}
+
+.leader {
+    border: 2px solid #33ded2;
 }
 
 .sidebar-header {
@@ -224,6 +236,7 @@ h2 {
 
 .sidebar-header h2 {
     margin: 0;
+    color: #f9e735;
 }
 
 /* styles for the success modal */
