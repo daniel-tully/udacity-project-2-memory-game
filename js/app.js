@@ -16,7 +16,8 @@ const query = (() => {
         timerSpan: timerSpan,
         stars: stars,
         playerDetails: playerDetails,
-        beginButton: beginButton
+        beginButton: beginButton,
+        sideBarUl: sideBarUl
     };
 })();
 
@@ -51,12 +52,12 @@ const nums = (() => {
 const arr = (() => {
     let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
     let openCards = [];
-    let players = [];
+    let player = [];
 
     return {
         cards: cards,
         openCards: openCards,
-        players: players
+        player: player
     };
 })();
 
@@ -70,7 +71,7 @@ query.beginButton.addEventListener('click',  (e) => {
     const playerName = query.playerDetails.querySelector('#first-name').value;
 
     // push player into players array using createPlayer class
-    arr.players.push( new createPlayer(playerName));
+    arr.player.push(new createPlayer(playerName));
 
     // get player
     let activeUser = document.querySelector('.active-user');
@@ -89,7 +90,7 @@ query.beginButton.addEventListener('click',  (e) => {
         li.appendChild(icon);
         query.deck.appendChild(li);
     }
-    activeUser.innerText = arr.players[0].name;
+    activeUser.innerText = arr.player[0].name;
     startTimer();
 });
 
@@ -282,24 +283,21 @@ function completed() {
         successContainer.classList.replace('modal-closed', 'modal-open');
     },800);
 
-    // add player name and time to leaderboard
-    function el(_type, _class) {
-        const element = document.createElement(_type);
-        element.classList.add(_class);
-        return element;
-    }
+}
 
-    const leaderLi = el('LI', 'leader-li flex justify align');
-    const leaderName = el('SPAN', 'leader-name');
-    const leaderTime = el('SPAN', 'leader-time');
+/**
+ * add to leaderboard
+ */
+function addToLeaderboard() {
+    const leaderLi = document.createElement('LI');
 
-    leaderName.innerText = arr.players[0];
-    leaderTime.innerText = `${nums.minutes}:${nums.seconds}`;
-    
-    leaderLi.appendChild(leaderName);
-    leaderLi.appendChild(leaderTime);
+    leaderLi.innerHTML = `<span class="leader-name">${arr.player[0].name}</span>
+    <span class="leader-time">${nums.minutes}:${nums.seconds}</span>`;
+
+    leaderLi.classList.add('leader-li', 'flex', 'justify', 'align');
+
     query.sideBarUl.appendChild(leaderLi);
-
+    console.log('added li');
 }
 
 /**
@@ -310,6 +308,7 @@ function successModal() {
     restartButton.addEventListener('click', () => {
         const successContainer = document.querySelector('.success-container');
         successContainer.classList.replace('modal-open', 'modal-closed');
+        addToLeaderboard();
         restartGame();
     });
 }
