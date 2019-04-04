@@ -94,13 +94,6 @@ body {
     color: #f9e735;
 }
 
-.game-title {
-    display: inline;
-    font-size: 1.5em;
-    text-align: center;
-    color: #f9e735;
-}
-
 h2 {
     font-size: 1.1em;
     font-weight: normal;
@@ -124,6 +117,15 @@ h2 {
     text-align: center;
 }
 
+/* header */
+.header {
+    padding-top: 10px;
+}
+
+.active-user-ctn {
+    margin-top: 10px;
+}
+
 /* misc */
 
 .player-details {
@@ -138,20 +140,9 @@ h2 {
     margin-left: 10px;
 }
 
-.main-title-inner {
-    display: inline-block;
-    padding: 8px 18px;
-    background-color: #932765;
-    border-radius: 30px;
-}
-
-.header {
-    padding-top: 20px;
-}
-
 .game-info {
-    margin: 20px 0;
-    padding: 15px 0;
+    margin: 15px 0;
+    padding: 15px 25px;
     border-radius: 4px;
     background-color: #f9e735;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
@@ -280,13 +271,27 @@ h2 {
 @media only screen and (min-width: 800px) {
 
     body {
-        margin: 0;
+        margin: 0 40px;
+    }
+
+    /* header */
+    .header {
+        padding-top: 20px;
+    }
+
+    .active-user-ctn {
+        margin-top: 0;
     }
 
     .main-title {
         display: flex;
         justify-content: space-between;
         align-content: center;
+    }
+
+    .game-info {
+        margin: 20px 0;
+        padding: 15px;
     }
 
     .game .container {
