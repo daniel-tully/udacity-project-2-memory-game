@@ -89,9 +89,18 @@ query.beginButton.addEventListener('click',  (e) => {
         li.classList.add('card', 'flex', 'align', 'justify-center');
         li.appendChild(icon);
         query.deck.appendChild(li);
+        li.style.height = li.clientWidth + 'px';
     }
     activeUser.innerText = arr.player[0].name;
     startTimer();
+});
+
+/**
+ * set height of cards based on window
+ */
+window.addEventListener('resize', () => {
+    for (let card of query.deck.children)
+    card.style.height = card.clientWidth + 'px';
 });
 
 /**
