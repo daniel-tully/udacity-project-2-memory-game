@@ -297,7 +297,6 @@ function addToLeaderboard() {
     leaderLi.classList.add('leader-li', 'flex', 'justify', 'align');
 
     query.sideBarUl.appendChild(leaderLi);
-    console.log('added li');
 }
 
 /**
