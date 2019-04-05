@@ -273,21 +273,8 @@ function completed() {
         const successContainer = document.querySelector('.success-container');
         const successCount = document.querySelector('.success-count');
         const timeAmount = document.querySelector('.time-amount');
-        let showMins;
-        let s;
 
-        if (nums.minutes >= 1) {
-            if(nums.minutes > 1) {
-                s = 's';
-            } else {
-                s = '';
-            }
-            showMins = `${nums.minutes} minute${s} and`;
-        } else {
-            showMins = '';
-        }
-
-        timeAmount.innerHTML = `${showMins} ${nums.seconds} seconds`;
+        timeAmount.innerHTML = query.timerSpan.innerHTML;
         successCount.innerHTML = nums.moveCount;
         successContainer.classList.replace('modal-closed', 'modal-open');
     },800);
@@ -304,7 +291,6 @@ function addToLeaderboard() {
     <span class="leader-time">${nums.minutes}:${nums.seconds}</span>`;
 
     leaderLi.classList.add('leader-li', 'flex', 'justify', 'align');
-
     query.sideBarUl.appendChild(leaderLi);
 }
 
@@ -313,21 +299,26 @@ function addToLeaderboard() {
  */
 function successModal() {
     const restartButton = document.querySelector('.restart-btn');
+
     restartButton.addEventListener('click', () => {
+        // something happening here that runs the following code twice
         const successContainer = document.querySelector('.success-container');
         successContainer.classList.replace('modal-open', 'modal-closed');
-        addToLeaderboard();
         restartGame();
     });
+
+     // add to leaderboard
+     addToLeaderboard();
 }
 
 /**
  * restart game
  */
 function restartGame() {
+    console.log('check point');
     const eachCard = query.deck.querySelectorAll('.card');
     const moveCounterSpan = document.querySelector('.moves');
-    
+
     moveCounterSpan.innerHTML = 0;
     shuffle(arr.cards);
 
