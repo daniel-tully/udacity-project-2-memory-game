@@ -38,6 +38,8 @@ body {
     font-family: 'Ubuntu', sans-serif;
     background-color: #33ded2;
     color: #932765;
+    margin: 0;
+    padding: 20px;
 }
 
 .flex {
@@ -85,6 +87,10 @@ body {
 .header h1 {
     display: inline;
     text-align: center;
+}
+
+.main-title {
+    justify-content: center;
 }
 
 .main-title i {
