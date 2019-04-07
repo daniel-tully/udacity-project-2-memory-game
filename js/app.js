@@ -9,6 +9,7 @@ const query = (() => {
     const playerDetails = document.querySelector('.player-details');
     const beginButton = playerDetails.querySelector('.begin-btn');
     const sideBarUl = document.querySelector('.leader-ul');
+    const getCard = document.querySelector('.card');
 
     return {
         deck: deck,
@@ -17,7 +18,8 @@ const query = (() => {
         stars: stars,
         playerDetails: playerDetails,
         beginButton: beginButton,
-        sideBarUl: sideBarUl
+        sideBarUl: sideBarUl,
+        getCard: getCard
     };
 })();
 
@@ -82,15 +84,17 @@ query.beginButton.addEventListener('click',  (e) => {
     shuffle(arr.cards);
 
     for (let card of arr.cards) {
-        const li = document.createElement('li');
-        const icon = document.createElement('i');
-        icon.classList.add('fa'); // add 'fa-question-circle'
-        icon.classList.add(card);
-        li.classList.add('card', 'flex', 'align', 'justify-center');
-        li.appendChild(icon);
-        query.deck.appendChild(li);
-        li.style.height = li.clientWidth + 'px';
+        const cardDiv = document.createElement('DIV');
+        
+        cardDiv.className = 'card';
+        cardDiv.innerHTML = `
+        <div class="card-inner">
+            <div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>
+            <div class="card-back flex align justify-center"><i class="fa ${card}"></i></div>
+        </div>`
+        query.deck.appendChild(cardDiv);
     }
+    boxSize();
     activeUser.innerText = arr.player[0].name;
     startTimer();
 });
@@ -98,9 +102,13 @@ query.beginButton.addEventListener('click',  (e) => {
 /**
  * set height of cards based on window
  */
+function boxSize() {
+    for (let card of query.deck.children) {
+        card.style.height = card.clientWidth + 'px';
+    }
+}
 window.addEventListener('resize', () => {
-    for (let card of query.deck.children)
-    card.style.height = card.clientWidth + 'px';
+    boxSize();
 });
 
 /**
@@ -134,6 +142,7 @@ function shuffle(array) {
  * capture click event on any card in deck
  */
 query.deck.addEventListener('click', (e) => {
+
     if (arr.openCards.length < 2) {
         const selection = e.target;
 
@@ -143,7 +152,7 @@ query.deck.addEventListener('click', (e) => {
         } else {
 
             // check if target is card li
-            if (selection.nodeName === 'LI') {
+            if (selection.classList.contains('card-front')) {
                 showCard(selection);
                 addCard(selection);
     
@@ -202,7 +211,9 @@ query.restartIcon.addEventListener('click', () => {
  * @param {node} selection is the target clicked
  */
 function showCard(selection) {
-    selection.classList.add('open', 'show');
+    console.log(selection.parentNode);
+    selection.parentNode.classList.add('flip-it');
+    selection.parentNode.parentNode.classList.add('flip-it');
 }
 
 /**
