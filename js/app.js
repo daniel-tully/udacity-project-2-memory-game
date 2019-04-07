@@ -160,7 +160,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 1) {
+                        if (nums.pairCount === 2) {
                             completed();
                             successModal();
                         }
@@ -232,7 +232,10 @@ function addCard(cardBack) {
 function isMatch() {
     for (let card of query.deck.children) {
         if (card.classList.contains('open')) {
-            card.firstElementChild.children[1].classList.add('match', 'enlarge');
+            card.firstElementChild.children[1].classList.add('match');
+            setTimeout(() => {
+                card.className += ' enlarge';
+            }, 300);
         }
     }
     arr.openCards = [];
@@ -330,17 +333,23 @@ function successModal() {
  */
 function restartGame() {
     console.log('check point');
-    const eachCard = query.deck.querySelectorAll('.card');
+    const eachCard = query.deck.children;
     const moveCounterSpan = document.querySelector('.moves');
 
     moveCounterSpan.innerHTML = 0;
     shuffle(arr.cards);
 
     // reload the deck
-    for (let i = 0; i < eachCard.length; i++) {
-        eachCard[i].classList.remove('match', 'show', 'open', 'enlarge');
-        eachCard[i].firstElementChild.classList = 'fa ' + arr.cards[i];
+    for (let card of eachCard) {
+        card.classList.remove('flip-it', 'open', 'enlarge');
+        card.firstElementChild.classList.remove('flip-it');
+        card.firstElementChild.children[1].classList = 'fa ' + arr.cards[card];
     }
+
+    // for (let i = 0; i < eachCard.length; i++) {
+    //     eachCard[i].classList.remove('match', 'open', 'enlarge');
+    //     eachCard[i].firstElementChild.classList = 'fa ' + arr.cards[i];
+    // }
 
     // reload the stars
     for (star of query.stars) {
