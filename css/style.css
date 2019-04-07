@@ -210,13 +210,12 @@ h2 {
 .match {
     background-color: #932765;
     color: #f9e735;
-    font-size: 2.3em;
 }
 
 @keyframes cardEnlarger {
 
     0% {
-        transform: scale(1) rotate(-360deg);
+        transform: scale(1);
     }
 
     50% {

@@ -87,11 +87,10 @@ query.beginButton.addEventListener('click',  (e) => {
         const cardDiv = document.createElement('DIV');
         
         cardDiv.className = 'card';
-        cardDiv.innerHTML = `
-        <div class="card-inner">
-            <div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>
-            <div class="card-back flex align justify-center"><i class="fa ${card}"></i></div>
-        </div>`
+        cardDiv.innerHTML = '<div class="card-inner">' +
+            '<div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>' +
+            '<div class="card-back flex align justify-center"><i class="fa ' + card + '"></i></div>' +
+            '</div>'
         query.deck.appendChild(cardDiv);
     }
     boxSize();
@@ -154,7 +153,6 @@ query.deck.addEventListener('click', (e) => {
             // check if target is card li
             if (selection.classList.contains('card-front')) {
                 showCard(selection);
-                addCard(selection);
     
                 // check if cards match
                 if (arr.openCards.length > 1) {
@@ -211,17 +209,21 @@ query.restartIcon.addEventListener('click', () => {
  * @param {node} selection is the target clicked
  */
 function showCard(selection) {
-    console.log(selection.parentNode);
-    selection.parentNode.classList.add('flip-it');
-    selection.parentNode.parentNode.classList.add('flip-it');
+    let cardParent = selection.parentNode;
+    let cardGParent = cardParent.parentNode;
+
+    cardGParent.className += ' open';
+    cardParent.className += ' flip-it';
+    cardGParent.className += ' flip-it';
+    addCard(cardParent.children[1]);
 }
 
 /**
  * add card to openCards
- * @param {node} selection is the target clicked
+ * @param {node} cardBack is the target clicked
  */
-function addCard(selection) {
-    return arr.openCards.push(selection.firstElementChild);
+function addCard(cardBack) {
+    return arr.openCards.push(cardBack.firstElementChild);
 }
 
 /**
@@ -230,8 +232,7 @@ function addCard(selection) {
 function isMatch() {
     for (let card of query.deck.children) {
         if (card.classList.contains('open')) {
-            card.classList.add('match', 'enlarge');
-            card.classList.remove('open', 'show');
+            card.firstElementChild.children[1].classList.add('match', 'enlarge');
         }
     }
     arr.openCards = [];
@@ -244,7 +245,9 @@ function isMatch() {
 function noMatch() {
     setTimeout(() => {
         for (let card of query.deck.children) {
-            card.classList.remove('open', 'show');
+            card.classList.remove('open');
+            card.firstElementChild.classList.remove('flip-it');
+            card.firstElementChild.children[1].classList.remove('flip-it');
         }
         arr.openCards = [];
     }, 800);
