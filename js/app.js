@@ -87,7 +87,7 @@ query.beginButton.addEventListener('click',  (e) => {
         const cardDiv = document.createElement('DIV');
         
         cardDiv.className = 'card';
-        cardDiv.innerHTML = '<div class="card-inner">' +
+        cardDiv.innerHTML = '<div class="card-internal">' +
             '<div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>' +
             '<div class="card-back flex align justify-center"><i class="fa ' + card + '"></i></div>' +
             '</div>'
@@ -232,10 +232,10 @@ function addCard(cardBack) {
 function isMatch() {
     for (let card of query.deck.children) {
         if (card.classList.contains('open')) {
-            card.firstElementChild.children[1].classList.add('match');
             setTimeout(() => {
+                card.firstElementChild.children[1].classList.add('match');
                 card.className += ' enlarge';
-            }, 300);
+            }, 1000);
         }
     }
     arr.openCards = [];
@@ -248,12 +248,17 @@ function isMatch() {
 function noMatch() {
     setTimeout(() => {
         for (let card of query.deck.children) {
-            card.classList.remove('open');
-            card.firstElementChild.classList.remove('flip-it');
-            card.firstElementChild.children[1].classList.remove('flip-it');
+            let cardInternal = card.firstElementChild;
+            if (cardInternal.children[1].classList.contains('match')) {
+                continue;
+            } else {
+                card.classList.remove('open');
+                cardInternal.classList.remove('flip-it');
+                cardInternal.children[1].classList.remove('flip-it');
+            }
         }
         arr.openCards = [];
-    }, 800);
+    }, 1000);
 }
 
 // count player's moves
