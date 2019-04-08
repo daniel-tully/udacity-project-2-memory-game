@@ -90,6 +90,7 @@ body {
 }
 
 .main-title {
+    display: block;
     justify-content: center;
 }
 
@@ -124,11 +125,10 @@ h2 {
 }
 
 /* header */
-.header {
-    padding-top: 10px;
-}
 
 .active-user-ctn {
+    display: block;
+    align-self: center;
     margin-top: 10px;
 }
 
@@ -139,7 +139,8 @@ h2 {
 }
 
 .player-details-form label, input, button {
-    width: 100%;
+    display: block;
+    /* width: 100%; */
 }
 
 .begin-btn {
@@ -270,10 +271,14 @@ h2 {
 }
 
 .modal {
-    padding: 15px;
+    padding: 20px;
     background-color: #f9e735;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2)
+}
+
+.modal h1 {
+    margin: 0;
 }
 
 .success-count {
