@@ -160,7 +160,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 2) {
+                        if (nums.pairCount === 8) {
                             completed();
                             successModal();
                         }
@@ -299,7 +299,8 @@ function completed() {
         timeAmount.innerHTML = query.timerSpan.innerHTML;
         successCount.innerHTML = nums.moveCount;
         successContainer.classList.replace('modal-closed', 'modal-open');
-    },800);
+        successContainer.className += ' enlarge';
+    },1500);
 
 }
 
@@ -337,24 +338,21 @@ function successModal() {
  * restart game
  */
 function restartGame() {
-    console.log('check point');
-    const eachCard = query.deck.children;
     const moveCounterSpan = document.querySelector('.moves');
+    const eachCard = query.deck.children;
 
     moveCounterSpan.innerHTML = 0;
     shuffle(arr.cards);
 
     // reload the deck
-    for (let card of eachCard) {
-        card.classList.remove('flip-it', 'open', 'enlarge');
-        card.firstElementChild.classList.remove('flip-it');
-        card.firstElementChild.children[1].classList = 'fa ' + arr.cards[card];
+    for (let i = 0; i < eachCard.length; i++) {
+        setTimeout(() => {
+            eachCard[i].classList.remove('flip-it', 'open', 'enlarge');
+            eachCard[i].firstElementChild.classList.remove('flip-it');
+            eachCard[i].firstElementChild.children[1].classList.remove('match');
+            eachCard[i].firstElementChild.children[1].firstElementChild.className = `fa ${arr.cards[i]}`;
+        }, 200);
     }
-
-    // for (let i = 0; i < eachCard.length; i++) {
-    //     eachCard[i].classList.remove('match', 'open', 'enlarge');
-    //     eachCard[i].firstElementChild.classList = 'fa ' + arr.cards[i];
-    // }
 
     // reload the stars
     for (star of query.stars) {
