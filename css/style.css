@@ -118,9 +118,8 @@ h2 {
     margin-top: 20px;
 }
 
-.player-details-form label, input, button {
+.player-details-form label, input {
     display: block;
-    /* width: 100%; */
 }
 
 .begin-btn {
@@ -196,7 +195,7 @@ h2 {
 
 .card-front {
     background-color: #125c56;
-    color: #f9e735;
+    color: #247e78;
 }
 
 .card-back {
@@ -282,7 +281,7 @@ h2 {
     left: 0;
     padding: 0 15px;
     text-align: center;
-    background-color: #33ded2;
+    background-color: rgba(51, 222, 210, 0.7)
 }
 
 .modal-open {

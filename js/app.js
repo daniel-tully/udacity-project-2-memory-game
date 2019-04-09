@@ -351,10 +351,10 @@ function restartGame() {
     moveCounterSpan.innerHTML = 0;
 
     // un-flip cards
-    for (let i = 0; i < eachCard.length; i++) {
-            eachCard[i].classList.remove('flip-it', 'open', 'enlarge');
-            eachCard[i].firstElementChild.classList.remove('flip-it');
-            eachCard[i].firstElementChild.children[1].classList.remove('match');
+    for (let card of eachCard) {
+            card.classList.remove('flip-it', 'open', 'enlarge');
+            card.firstElementChild.classList.remove('flip-it');
+            card.firstElementChild.children[1].classList.remove('match');
     }
 
     shuffle(arr.cards);
