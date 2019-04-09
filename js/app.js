@@ -234,7 +234,7 @@ function isMatch() {
             setTimeout(() => {
                 card.firstElementChild.children[1].classList.add('match');
                 card.className += ' enlarge';
-            }, 1000);
+            }, 800);
         }
     }
     arr.openCards = [];
@@ -329,8 +329,8 @@ function successModal() {
         restartGame();
     });
 
-     // add to leaderboard
-     addToLeaderboard();
+    // add to leaderboard
+    addToLeaderboard();
 }
 
 /**
