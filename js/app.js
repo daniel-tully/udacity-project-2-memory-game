@@ -9,6 +9,7 @@ const query = (() => {
     const playerDetails = document.querySelector('.player-details');
     const beginButton = playerDetails.querySelector('.begin-btn');
     const sideBarUl = document.querySelector('.leader-ul');
+    const getCard = document.querySelector('.card');
 
     return {
         deck: deck,
@@ -17,7 +18,8 @@ const query = (() => {
         stars: stars,
         playerDetails: playerDetails,
         beginButton: beginButton,
-        sideBarUl: sideBarUl
+        sideBarUl: sideBarUl,
+        getCard: getCard
     };
 })();
 
@@ -82,15 +84,16 @@ query.beginButton.addEventListener('click',  (e) => {
     shuffle(arr.cards);
 
     for (let card of arr.cards) {
-        const li = document.createElement('li');
-        const icon = document.createElement('i');
-        icon.classList.add('fa'); // add 'fa-question-circle'
-        icon.classList.add(card);
-        li.classList.add('card', 'flex', 'align', 'justify-center');
-        li.appendChild(icon);
-        query.deck.appendChild(li);
-        li.style.height = li.clientWidth + 'px';
+        const cardDiv = document.createElement('DIV');
+        
+        cardDiv.className = 'card';
+        cardDiv.innerHTML = '<div class="card-internal">' +
+            '<div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>' +
+            '<div class="card-back flex align justify-center"><i class="fa ' + card + '"></i></div>' +
+            '</div>'
+        query.deck.appendChild(cardDiv);
     }
+    boxSize();
     activeUser.innerText = arr.player[0].name;
     startTimer();
 });
@@ -98,9 +101,13 @@ query.beginButton.addEventListener('click',  (e) => {
 /**
  * set height of cards based on window
  */
+function boxSize() {
+    for (let card of query.deck.children) {
+        card.style.height = card.clientWidth + 'px';
+    }
+}
 window.addEventListener('resize', () => {
-    for (let card of query.deck.children)
-    card.style.height = card.clientWidth + 'px';
+    boxSize();
 });
 
 /**
@@ -134,6 +141,7 @@ function shuffle(array) {
  * capture click event on any card in deck
  */
 query.deck.addEventListener('click', (e) => {
+
     if (arr.openCards.length < 2) {
         const selection = e.target;
 
@@ -143,9 +151,8 @@ query.deck.addEventListener('click', (e) => {
         } else {
 
             // check if target is card li
-            if (selection.nodeName === 'LI') {
+            if (selection.classList.contains('card-front')) {
                 showCard(selection);
-                addCard(selection);
     
                 // check if cards match
                 if (arr.openCards.length > 1) {
@@ -202,15 +209,20 @@ query.restartIcon.addEventListener('click', () => {
  * @param {node} selection is the target clicked
  */
 function showCard(selection) {
-    selection.classList.add('open', 'show');
+    let cardParent = selection.parentNode;
+    let cardGParent = cardParent.parentNode;
+
+    cardGParent.className += ' open';
+    cardParent.className += ' flip-it';
+    addCard(cardParent.children[1]);
 }
 
 /**
  * add card to openCards
- * @param {node} selection is the target clicked
+ * @param {node} cardBack is the target clicked
  */
-function addCard(selection) {
-    return arr.openCards.push(selection.firstElementChild);
+function addCard(cardBack) {
+    return arr.openCards.push(cardBack.firstElementChild);
 }
 
 /**
@@ -219,8 +231,10 @@ function addCard(selection) {
 function isMatch() {
     for (let card of query.deck.children) {
         if (card.classList.contains('open')) {
-            card.classList.add('match', 'enlarge');
-            card.classList.remove('open', 'show');
+            setTimeout(() => {
+                card.firstElementChild.children[1].classList.add('match');
+                card.className += ' enlarge';
+            }, 800);
         }
     }
     arr.openCards = [];
@@ -233,10 +247,17 @@ function isMatch() {
 function noMatch() {
     setTimeout(() => {
         for (let card of query.deck.children) {
-            card.classList.remove('open', 'show');
+            let cardInternal = card.firstElementChild;
+            if (cardInternal.children[1].classList.contains('match')) {
+                continue;
+            } else {
+                card.classList.remove('open');
+                cardInternal.classList.remove('flip-it');
+                cardInternal.children[1].classList.remove('flip-it');
+            }
         }
         arr.openCards = [];
-    }, 800);
+    }, 1000);
 }
 
 // count player's moves
@@ -277,7 +298,8 @@ function completed() {
         timeAmount.innerHTML = query.timerSpan.innerHTML;
         successCount.innerHTML = nums.moveCount;
         successContainer.classList.replace('modal-closed', 'modal-open');
-    },800);
+        successContainer.className += ' enlarge';
+    },1500);
 
 }
 
@@ -307,26 +329,34 @@ function successModal() {
         restartGame();
     });
 
-     // add to leaderboard
-     addToLeaderboard();
+    // add to leaderboard
+    addToLeaderboard();
 }
 
 /**
  * restart game
  */
 function restartGame() {
-    console.log('check point');
-    const eachCard = query.deck.querySelectorAll('.card');
     const moveCounterSpan = document.querySelector('.moves');
+    const eachCard = query.deck.children;
 
     moveCounterSpan.innerHTML = 0;
+
+    // un-flip cards
+    for (let i = 0; i < eachCard.length; i++) {
+            eachCard[i].classList.remove('flip-it', 'open', 'enlarge');
+            eachCard[i].firstElementChild.classList.remove('flip-it');
+            eachCard[i].firstElementChild.children[1].classList.remove('match');
+    }
+
     shuffle(arr.cards);
 
     // reload the deck
-    for (let i = 0; i < eachCard.length; i++) {
-        eachCard[i].classList.remove('match', 'show', 'open', 'enlarge');
-        eachCard[i].firstElementChild.classList = 'fa ' + arr.cards[i];
-    }
+    setTimeout(() => {
+        for (let j = 0; j < eachCard.length; j++) {
+            eachCard[j].firstElementChild.children[1].firstElementChild.className = `fa ${arr.cards[j]}`;
+        }
+    }, 800);
 
     // reload the stars
     for (star of query.stars) {
