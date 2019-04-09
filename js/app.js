@@ -160,7 +160,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 8) {
+                        if (nums.pairCount === 1) {
                             completed();
                             successModal();
                         }
@@ -214,7 +214,6 @@ function showCard(selection) {
 
     cardGParent.className += ' open';
     cardParent.className += ' flip-it';
-    cardGParent.className += ' flip-it';
     addCard(cardParent.children[1]);
 }
 
@@ -342,17 +341,22 @@ function restartGame() {
     const eachCard = query.deck.children;
 
     moveCounterSpan.innerHTML = 0;
-    shuffle(arr.cards);
 
-    // reload the deck
+    // un-flip cards
     for (let i = 0; i < eachCard.length; i++) {
-        setTimeout(() => {
             eachCard[i].classList.remove('flip-it', 'open', 'enlarge');
             eachCard[i].firstElementChild.classList.remove('flip-it');
             eachCard[i].firstElementChild.children[1].classList.remove('match');
-            eachCard[i].firstElementChild.children[1].firstElementChild.className = `fa ${arr.cards[i]}`;
-        }, 200);
     }
+
+    shuffle(arr.cards);
+
+    // reload the deck
+    setTimeout(() => {
+        for (let j = 0; j < eachCard.length; j++) {
+            eachCard[j].firstElementChild.children[1].firstElementChild.className = `fa ${arr.cards[j]}`;
+        }
+    }, 800);
 
     // reload the stars
     for (star of query.stars) {
