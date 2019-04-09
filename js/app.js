@@ -143,16 +143,24 @@ function shuffle(array) {
 query.deck.addEventListener('click', (e) => {
 
     if (arr.openCards.length < 2) {
-        const selection = e.target;
 
         // check if same card is clicked twice
-        if (selection.classList.contains('show')) {
+        if (e.target.classList.contains('show')) {
             return;
         } else {
 
-            // check if target is card li
-            if (selection.classList.contains('card-front')) {
-                showCard(selection);
+            // get card based on e.target
+            if (e.target.classList.contains('card-front') || e.target.classList.contains('fa-question-circle')) {
+                let whichCard = climbDOM(e.target);
+                function climbDOM (el) {
+                    for ( ; !el.classList.contains('card-internal'); el = el.parentNode ) {
+                        if (el.classList.contains('card-front')) {
+                            return el;
+                        }
+                    }
+                    return null;
+                }
+                showCard(whichCard);
     
                 // check if cards match
                 if (arr.openCards.length > 1) {
@@ -160,7 +168,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 1) {
+                        if (nums.pairCount === 8) {
                             completed();
                             successModal();
                         }
