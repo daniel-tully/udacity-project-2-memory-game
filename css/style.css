@@ -8,10 +8,10 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
   border: none;
 }
 
@@ -30,7 +30,7 @@ input {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -104,14 +104,6 @@ h2 {
     text-align: center;
 }
 
-/* header */
-
-.active-user-ctn {
-    display: block;
-    align-self: center;
-    margin-top: 10px;
-}
-
 /* misc */
 
 .player-details-form {
@@ -170,7 +162,7 @@ h2 {
     background-color: transparent;
     border-radius: 6px;
     margin-bottom: 10px;
-    font-size: 2.3em;
+    font-size: 2em;
     background-color: transparent;
     perspective: 1000px;
 }
@@ -228,44 +220,7 @@ h2 {
 }
 
 .enlarge {
-    animation: cardEnlarger 0.75s 1;
-}
-
-/* sidebar */
-
-.sidebar ul {
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar li {
-    padding: 7px 12px;
-    background-color: #faf846;
-    margin-bottom: 6px;
-    border-radius: 15px;
-}
-
-.leader {
-    border: 2px solid #33ded2;
-}
-
-.sidebar-header {
-    background-color: #932765;
-    padding: 15px 20px;
-    border-radius: 4px 4px 0 0;
-    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar-content {
-    padding: 15px 20px;
-    background-color: #f9e735;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar-header h2 {
-    margin: 0;
-    color: #f9e735;
+    animation: cardEnlarger 0.5s 1;
 }
 
 /* modals */
@@ -334,10 +289,6 @@ h2 {
         padding-top: 20px;
     }
 
-    .active-user-ctn {
-        margin-top: 0;
-    }
-
     .main-title {
         display: flex;
         justify-content: space-between;
@@ -354,16 +305,12 @@ h2 {
         justify-content: space-between;
     }
 
-    .game-board {
-        width: 65%;
-    }
-
     .col-3 {
         width: 25%;
     }
 
-    .sidebar {
-        width: 30%;
+    .card {
+        font-size: 2.5em;
     }
 
 }

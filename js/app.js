@@ -6,9 +6,6 @@ const query = (() => {
     const restartIcon = document.querySelector('.restart');
     const timerSpan = document.querySelector('.timer-time');
     const stars = document.querySelector('.score-panel').children;
-    const playerDetails = document.querySelector('.player-details');
-    const beginButton = playerDetails.querySelector('.begin-btn');
-    const sideBarUl = document.querySelector('.leader-ul');
     const getCard = document.querySelector('.card');
 
     return {
@@ -16,9 +13,6 @@ const query = (() => {
         restartIcon: restartIcon,
         timerSpan: timerSpan,
         stars: stars,
-        playerDetails: playerDetails,
-        beginButton: beginButton,
-        sideBarUl: sideBarUl,
         getCard: getCard
     };
 })();
@@ -54,32 +48,17 @@ const nums = (() => {
 const arr = (() => {
     let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
     let openCards = [];
-    let player = [];
 
     return {
         cards: cards,
         openCards: openCards,
-        player: player
     };
 })();
 
 /**
  * start game
  */
-query.beginButton.addEventListener('click',  (e) => {
-    e.preventDefault();
-
-    // get player name input value
-    const playerName = query.playerDetails.querySelector('#first-name').value;
-
-    // push player into players array using createPlayer class
-    arr.player.push(new createPlayer(playerName));
-
-    // get player
-    let activeUser = document.querySelector('.active-user');
-
-    // close modal
-    query.playerDetails.classList.replace('modal-open', 'modal-closed');
+document.addEventListener('DOMContentLoaded', () => {
 
     shuffle(arr.cards);
 
@@ -94,7 +73,6 @@ query.beginButton.addEventListener('click',  (e) => {
         query.deck.appendChild(cardDiv);
     }
     boxSize();
-    activeUser.innerText = arr.player[0].name;
     startTimer();
 });
 
@@ -109,16 +87,6 @@ function boxSize() {
 window.addEventListener('resize', () => {
     boxSize();
 });
-
-/**
- * createPlayer class
- */
-class createPlayer {
-    constructor (value) {
-        this.name = value;
-        this.score = 0;
-    }
-}
 
 /**
  * Shuffle function from http://stackoverflow.com/a/2450976
@@ -168,7 +136,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 8) {
+                        if (nums.pairCount === 1) {
                             completed();
                             successModal();
                         }
@@ -312,33 +280,16 @@ function completed() {
 }
 
 /**
- * add to leaderboard
- */
-function addToLeaderboard() {
-    const leaderLi = document.createElement('LI');
-
-    leaderLi.innerHTML = `<span class="leader-name">${arr.player[0].name}</span>
-    <span class="leader-time">${nums.minutes}:${nums.seconds}</span>`;
-
-    leaderLi.classList.add('leader-li', 'flex', 'justify', 'align');
-    query.sideBarUl.appendChild(leaderLi);
-}
-
-/**
  * success modal
  */
 function successModal() {
     const restartButton = document.querySelector('.restart-btn');
 
     restartButton.addEventListener('click', () => {
-        // something happening here that runs the following code twice
         const successContainer = document.querySelector('.success-container');
         successContainer.classList.replace('modal-open', 'modal-closed');
         restartGame();
     });
-
-    // add to leaderboard
-    addToLeaderboard();
 }
 
 /**

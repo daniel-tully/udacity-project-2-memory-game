@@ -11,21 +11,6 @@
 </head>
 <body>
 
-    <!-- player details prompt -->
-    <div class="player-details modal-container modal-open">
-        <div class="player-details-modal modal">
-            <div class="main-title">
-                <img src="img/memory-game-logo.png" alt="Memory Game Logo" width="229" height="42">
-            </div>
-            <h1>Enter your name</h1>
-            <form class="player-details-form flex align justify-center">
-                <label for="first-name">First name:</label>
-                <input type="text" id="first-name">
-                <button class="begin-btn btn">Begin Game</button>
-            </form>
-        </div>
-    </div>
-
     <!-- success modal -->
     <div class="success-container modal-container modal-closed">
         <div class="success-modal modal">
@@ -33,7 +18,7 @@
             <ul id="success-stars">
             </ul>
             <p>You've finished the game. Your time was: <span class="time-amount"></span> and you completed it in <span class="success-count"></span> moves.</p>
-            <button href="#" class="restart-btn btn">Play again</button>
+            <button class="restart-btn btn">Play again</button>
         </div>
     </div>
 
@@ -42,10 +27,6 @@
         <div class="container">
             <div class="main-title">
                 <img src="img/memory-game-logo.png" alt="Memory Game Logo" width="229" height="42">
-                <div class="active-user-ctn flex align">
-                    <i class="fa fa-user"></i>
-                    <span><span class="active-user"></span> - let's play!</span>
-                </div>
             </div>
             <div class="game-info flex justify align">
                 <div class="col-3">Moves: <span class="game-info-number moves">0</span></div>
@@ -67,15 +48,6 @@
         <div class="container">
             <div class="game-board">
                 <div class="deck flex justify wrap">
-                </div>
-            </div>
-            <div class="sidebar">
-                <div class="sidebar-header">
-                    <h2>Leaderboard</h2>
-                </div>
-                <div class="sidebar-content">
-                    <ul class="leader-ul">
-                    </ul>
                 </div>
             </div>
         </div>
