@@ -77,11 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * set height of cards based on window
+ * set height of cards / margin-bottom based on window
  */
 function boxSize() {
+    let deckW = query.deck.clientWidth;
+    let cardW = query.deck.children[0].clientWidth;
     for (let card of query.deck.children) {
         card.style.height = card.clientWidth + 'px';
+        card.style.marginBottom = ((deckW - (cardW * 4)) / 3) + 'px';
     }
 }
 window.addEventListener('resize', () => {
