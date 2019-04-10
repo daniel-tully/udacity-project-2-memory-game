@@ -248,11 +248,11 @@ function moveCounter() {
 
 // star rating
 function starRating() {
-    if (nums.moveCount > 14) {
-        query.stars[2].firstElementChild.classList.remove('star-lit');
+    if (nums.moveCount > 2) {
+        query.stars[2].firstElementChild.classList.replace('star-lit', 'star-out');
     }
     if (nums.moveCount > 20) {
-        query.stars[1].firstElementChild.classList.remove('star-lit');
+        query.stars[1].firstElementChild.classList.replace('star-lit', 'star-out');
     }
 }
 

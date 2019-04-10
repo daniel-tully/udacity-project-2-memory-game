@@ -1,8 +1,9 @@
+/* normalizers */
+
 * {
     box-sizing: border-box;
 }
 
-/* normalizers */
 button,
 input,
 optgroup,
@@ -28,6 +29,8 @@ input {
     padding: 10px;
     margin-left: 10px;
 }
+
+/* containers */
 
 .container {
     max-width: 700px;
@@ -70,7 +73,7 @@ body {
 }
 
 .main-title {
-    display: block;
+    display: flex;
     justify-content: center;
 }
 
@@ -86,8 +89,42 @@ h2 {
     font-weight: normal;
 }
 
-.game-info-number {
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.btn {
+    padding: 12px 15px;
+    background-color: #932765;
+    border-radius: 4px;
+    color: white;
+}
+
+/* header */
+
+.moves-ctn {
+    width: 30%;
+}
+
+.game-info-number, .time-amount {
     font-family: 'Orbitron', sans-serif;
+    font-size: 1.2em;
+}
+
+.timer-time {
+    width: 30%;
+}
+
+.score-panel {
+    width: 30%;
+}
+
+.restart {
+    width: 10%;
 }
 
 /* columns */
@@ -96,34 +133,14 @@ h2 {
     width: 100%;
 }
 
-.col-3 {
-    text-align: center;
-}
-
 /* misc */
-
-.player-details-form {
-    margin-top: 20px;
-}
-
-.player-details-form label, input {
-    display: block;
-}
-
-.begin-btn {
-    margin-left: 10px;
-}
 
 .game-info {
     margin: 15px 0;
-    padding: 15px 25px;
+    padding: 10px;
     border-radius: 4px;
     background-color: #f9e735;
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.game-info-number {
-    font-size: 1.5em;
 }
 
 .stars li, #success-stars li {
@@ -136,7 +153,11 @@ h2 {
 }
 
 .star-lit {
-    color: rgb(240, 183, 38);
+    color: #932765;
+}
+
+.star-out {
+    color: #f1c837;
 }
 
 .game {
@@ -234,6 +255,10 @@ h2 {
     background-color: rgba(51, 222, 210, 0.7)
 }
 
+.success-modal {
+    width: 300px;
+}
+
 .modal-open {
     display: flex;
 }
@@ -250,22 +275,47 @@ h2 {
 }
 
 .modal h1 {
-    margin: 0;
+    margin: 0 0 25px 0;
 }
 
 .success-count {
     font-weight: bold;
 }
 
-.btn {
-    padding: 12px 15px;
-    background-color: #932765;
-    border-radius: 4px;
-    color: white;
+.all-results {
+    margin: 20px 0;
 }
 
+.result-ctn {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #fbf957;
+    border-radius: 4px;
+}
+
+.result-ctn-header {
+    background-color: #932765;
+    color: #f9e735;
+    border-radius: 4px 4px 0 0;
+    padding: 7px;
+}
+
+.result-content {
+    padding: 15px;
+}
+
+#success-stars {
+    margin: 0;
+}
 
 @media only screen and (min-width: 400px) {
+
+    /* modals */
+
+    .success-modal {
+        width: 450px;
+    }
+
 }
 
 @media only screen and (min-width: 800px) {
@@ -275,19 +325,27 @@ h2 {
     }
 
     /* modals */
-    .player-details-form label, input, button {
-        width: inherit;
+
+    .modal {
+        padding: 40px 20px;
+    }
+
+    .success-modal {
+        width: 600px;
+    }
+
+    .modal h1 {
+        margin: 0 0 15px 0;
+    }
+
+    .result-ctn {
+        width: 32%;
     }
 
     /* header */
+
     .header {
         padding-top: 20px;
-    }
-
-    .main-title {
-        display: flex;
-        justify-content: space-between;
-        align-content: center;
     }
 
     .game-info {
@@ -295,13 +353,13 @@ h2 {
         padding: 15px;
     }
 
+    .game-info-number {
+        font-size: 1.5em;
+    }
+
     .game .container {
         display: flex;
         justify-content: space-between;
-    }
-
-    .col-3 {
-        width: 25%;
     }
 
     .card {

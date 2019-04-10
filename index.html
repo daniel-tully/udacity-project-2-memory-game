@@ -13,14 +13,29 @@
 
     <!-- success modal -->
     <div class="success-container modal-container modal-closed">
-        <div class="success-modal modal">
-            <h1>Congratulations!</h1>
-            <ul id="success-stars">
-            </ul>
-            <p>You've finished the game. Your time was: <span class="time-amount"></span> and you completed it in <span class="success-count"></span> moves.</p>
-            <button class="restart-btn btn">Play again</button>
+            <div class="success-modal modal">
+                <h1>Congratulations!</h1>
+                <p>You've finished the game. Your results are:</p>
+                <div class="all-results flex wrap justify">
+                    <div class="result-ctn">
+                        <div class="result-ctn-header">Moves</div>
+                        <div class="result-content"><span class="success-count"></span></div>
+                    </div>
+                    <div class="result-ctn">
+                        <div class="result-ctn-header">Stars</div>
+                        <div class="result-content">
+                            <ul id="success-stars">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="result-ctn">
+                        <div class="result-ctn-header">Time</div>
+                        <div class="result-content"><span class="time-amount"></span></div>
+                    </div>
+                </div>
+                <button class="restart-btn btn">Play again</button>
+            </div>
         </div>
-    </div>
 
     <!-- header -->
     <section class="header">
@@ -28,15 +43,15 @@
             <div class="main-title">
                 <img src="img/memory-game-logo.png" alt="Memory Game Logo" width="229" height="42">
             </div>
-            <div class="game-info flex justify align">
-                <div class="col-3">Moves: <span class="game-info-number moves">0</span></div>
-                <div class="timer-time game-info-number col-3">00:00</div>
-                <ul class="score-panel stars col-3">
+            <div class="game-info flex align">
+                <div class="moves-ctn text-center">Moves: <span class="game-info-number moves">0</span></div>
+                <div class="timer-time game-info-number text-center">00:00</div>
+                <ul class="score-panel stars text-center">
                     <li><i class="fa fa-star star-lit"></i></li>
                     <li><i class="fa fa-star star-lit"></i></li>
                     <li><i class="fa fa-star star-lit"></i></li>
                 </ul>
-                <div class="restart col-3">
+                <div class="restart text-left">
                     <i class="fa fa-repeat"></i>
                 </div>
             </div>
