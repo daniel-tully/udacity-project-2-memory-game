@@ -1,20 +1,10 @@
-# Memory Game Project
+# Memory Game
 
-## Table of Contents
+## Description
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+This is a simple memory card game where the user can flip 2 cards at a time to see their symbols. When the 2 selected cards have matching symbols, they will be added to the pair counter. Once all the pairs have been found, the user has completed the game and a success message shows with the user's results including; how many moves the user made to complete the game; how much time it took; and their star rating.
 
-## Instructions
+## Installation instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+1. Download from Github
+2. Open index.html in your internet browser

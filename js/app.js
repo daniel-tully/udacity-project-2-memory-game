@@ -29,7 +29,7 @@ const nums = (() => {
     let zeroSec;
     let zeroMin;
     let timerObj;
-    
+
     return {
         moveCount: moveCount,
         pairCount: pairCount,
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let card of arr.cards) {
         const cardDiv = document.createElement('DIV');
-        
+
         cardDiv.className = 'card';
         cardDiv.innerHTML = '<div class="card-internal">' +
             '<div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>' +
@@ -93,7 +93,7 @@ window.addEventListener('resize', () => {
 
 /**
  * Shuffle function from http://stackoverflow.com/a/2450976
- * @param {array} array is the cards 
+ * @param {array} array is the cards
  */
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -123,6 +123,8 @@ query.deck.addEventListener('click', (e) => {
             // get card based on e.target
             if (e.target.classList.contains('card-front') || e.target.classList.contains('fa-question-circle')) {
                 let whichCard = climbDOM(e.target);
+
+                // accept click from icon or card
                 function climbDOM (el) {
                     for ( ; !el.classList.contains('card-internal'); el = el.parentNode ) {
                         if (el.classList.contains('card-front')) {
@@ -131,8 +133,9 @@ query.deck.addEventListener('click', (e) => {
                     }
                     return null;
                 }
+
                 showCard(whichCard);
-    
+
                 // check if cards match
                 if (arr.openCards.length > 1) {
                     moveCounter();
@@ -141,7 +144,6 @@ query.deck.addEventListener('click', (e) => {
                         isMatch();
                         if (nums.pairCount === 1) {
                             completed();
-                            successModal();
                         }
                     } else {
                         noMatch();
@@ -160,6 +162,7 @@ query.deck.addEventListener('click', (e) => {
 function startTimer() {
     nums.timerObj = setInterval(timer, 1000);
 }
+
 /**
  * timer action
  */
@@ -242,13 +245,14 @@ function noMatch() {
 // count player's moves
 function moveCounter() {
     const moveCounterSpan = document.querySelector('.moves');
+
     nums.moveCount += 1;
     moveCounterSpan.innerHTML = nums.moveCount;
 }
 
 // star rating
 function starRating() {
-    if (nums.moveCount > 2) {
+    if (nums.moveCount > 12) {
         query.stars[2].firstElementChild.classList.replace('star-lit', 'star-out');
     }
     if (nums.moveCount > 20) {
@@ -301,6 +305,9 @@ function successModal() {
 function restartGame() {
     const moveCounterSpan = document.querySelector('.moves');
     const eachCard = query.deck.children;
+    const successContainer = document.querySelector('.success-container');
+
+    successContainer.classList.replace('modal-open', 'modal-closed');
 
     moveCounterSpan.innerHTML = 0;
 
@@ -344,4 +351,6 @@ function restartGame() {
 
     // start timer
     startTimer();
+
+    console.log('restarted');
 }
