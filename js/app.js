@@ -142,7 +142,7 @@ query.deck.addEventListener('click', (e) => {
                     starRating();
                     if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 1) {
+                        if (nums.pairCount === 8) {
                             completed();
                         }
                     } else {
@@ -333,7 +333,7 @@ function restartGame() {
             continue;
         }
         else {
-            star.firstElementChild.classList.add('star-lit');
+            star.firstElementChild.classList.replace('star-out', 'star-lit');
         }
     }
 
@@ -351,6 +351,4 @@ function restartGame() {
 
     // start timer
     startTimer();
-
-    console.log('restarted');
 }

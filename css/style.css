@@ -1,5 +1,4 @@
 /* normalizers */
-
 * {
     box-sizing: border-box;
 }
@@ -31,7 +30,6 @@ input {
 }
 
 /* containers */
-
 .container {
     max-width: 700px;
     margin: 0 auto;
@@ -66,7 +64,6 @@ body {
 }
 
 /* typography */
-
 .header h1 {
     display: inline;
     text-align: center;
@@ -105,12 +102,12 @@ h2 {
 }
 
 /* header */
-
 .moves-ctn {
     width: 30%;
 }
 
-.game-info-number, .time-amount {
+.game-info-number,
+.time-amount {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.2em;
 }
@@ -127,28 +124,14 @@ h2 {
     width: 10%;
 }
 
-/* columns */
-
-.game-board {
-    width: 100%;
-}
-
-/* misc */
-
-.game-info {
-    margin: 15px 0;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: #f9e735;
-    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.stars li, #success-stars li {
+.stars li,
+#success-stars li {
     list-style: none;
     display: inline-block;
 }
 
-.stars, #success-stars {
+.stars,
+#success-stars {
     padding: 0;
 }
 
@@ -160,8 +143,25 @@ h2 {
     color: #f1c837;
 }
 
+.game-info {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f9e735;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* board */
 .game {
     margin: 20px 0;
+}
+
+.game h2 {
+    text-align: center;
+}
+
+.game-board {
+    width: 100%;
 }
 
 .deck {
@@ -173,7 +173,6 @@ h2 {
 }
 
 /* cards */
-
 .card {
     width: 24%;
     background-color: transparent;
@@ -192,7 +191,8 @@ h2 {
     transform-style: preserve-3d;
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -220,7 +220,7 @@ h2 {
     color: #f9e735;
 }
 
-@keyframes cardEnlarger {
+@keyframes Enlarger {
 
     0% {
         transform: scale(1);
@@ -236,11 +236,10 @@ h2 {
 }
 
 .enlarge {
-    animation: cardEnlarger 0.5s 1;
+    animation: Enlarger 0.5s 1;
 }
 
 /* modals */
-
 .modal-container {
     justify-content: center;
     align-items: center;
@@ -252,7 +251,7 @@ h2 {
     left: 0;
     padding: 0 15px;
     text-align: center;
-    background-color: rgba(51, 222, 210, 0.7)
+    background-color: rgba(51, 222, 210, 0.7);
 }
 
 .success-modal {
@@ -271,7 +270,7 @@ h2 {
     padding: 20px;
     background-color: #f9e735;
     border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2)
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .modal h1 {
@@ -311,7 +310,6 @@ h2 {
 @media only screen and (min-width: 400px) {
 
     /* modals */
-
     .success-modal {
         width: 450px;
     }
@@ -325,7 +323,6 @@ h2 {
     }
 
     /* modals */
-
     .modal {
         padding: 40px 20px;
     }
@@ -343,7 +340,6 @@ h2 {
     }
 
     /* header */
-
     .header {
         padding-top: 20px;
     }

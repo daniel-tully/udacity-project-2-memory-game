@@ -7,42 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Orbitron|Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
 
     <!-- success modal -->
     <div class="success-container modal-container modal-closed">
-            <div class="success-modal modal">
-                <h1>Congratulations!</h1>
-                <p>You've finished the game. Your results are:</p>
-                <div class="all-results flex wrap justify">
-                    <div class="result-ctn">
-                        <div class="result-ctn-header">Moves</div>
-                        <div class="result-content"><span class="success-count"></span></div>
-                    </div>
-                    <div class="result-ctn">
-                        <div class="result-ctn-header">Stars</div>
-                        <div class="result-content">
-                            <ul id="success-stars">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="result-ctn">
-                        <div class="result-ctn-header">Time</div>
-                        <div class="result-content"><span class="time-amount"></span></div>
+        <div class="success-modal modal">
+            <h1>Congratulations!</h1>
+            <p>You've finished the game. Your results are:</p>
+
+            <div class="all-results flex wrap justify">
+                <div class="result-ctn">
+                    <div class="result-ctn-header">Moves</div>
+                    <div class="result-content"><span class="success-count"></span></div>
+                </div>
+
+                <div class="result-ctn">
+                    <div class="result-ctn-header">Stars</div>
+                    <div class="result-content">
+                        <ul id="success-stars">
+                        </ul>
                     </div>
                 </div>
-                <button class="restart-btn btn" onclick="restartGame()">Play again</button>
+
+                <div class="result-ctn">
+                    <div class="result-ctn-header">Time</div>
+                    <div class="result-content"><span class="time-amount"></span></div>
+                </div>
             </div>
+
+            <button class="restart-btn btn" onclick="restartGame()">Play again</button>
         </div>
+    </div>
 
     <!-- header -->
-    <section class="header">
+    <div class="header">
         <div class="container">
             <div class="main-title">
                 <img src="img/memory-game-logo.png" alt="Memory Game Logo" width="229" height="42">
             </div>
+
             <div class="game-info flex align">
                 <div class="moves-ctn text-center">Moves: <span class="game-info-number moves">0</span></div>
                 <div class="timer-time game-info-number text-center">00:00</div>
@@ -56,17 +62,17 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- game board -->
-    <section class="game">
+    <div class="game">
         <div class="container">
             <div class="game-board">
                 <div class="deck flex justify wrap">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <script src="js/app.js"></script>
 </body>
