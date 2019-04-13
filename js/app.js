@@ -46,8 +46,13 @@ const nums = (() => {
  * module - arrays
  */
 const arr = (() => {
-    let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+    let cards = [
+        'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 
+        'fa-leaf', 'fa-bicycle', 'fa-bomb'
+    ];
     let openCards = [];
+
+    cards = cards.concat(cards);
 
     return {
         cards: cards,

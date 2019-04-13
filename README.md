@@ -8,3 +8,8 @@ This is a simple memory card game where the user can flip 2 cards at a time to s
 
 1. Download from Github
 2. Open index.html in your internet browser
+
+## Dependencies
+
+1. Google fonts: Orbitron (for the numbers) and Ubuntu (for all other text) fonts.google.com
+2. Font Awesome: Bootstrap CDN
