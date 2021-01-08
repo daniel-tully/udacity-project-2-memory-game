@@ -30,17 +30,24 @@ input {
 }
 
 /* containers */
-.container {
-    max-width: 700px;
-    margin: 0 auto;
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game {
+    width: 65%;
+}
+
+.sidebar {
+    width: 30%;
 }
 
 body {
     font-family: 'Ubuntu', sans-serif;
-    background-color: #33ded2;
+    background-color: #33ded2 !important;
     color: #932765;
     margin: 0;
-    padding: 20px;
 }
 
 .flex {
@@ -120,6 +127,10 @@ h2 {
     width: 30%;
 }
 
+.scores {
+    padding: 0;
+}
+
 .restart {
     width: 10%;
 }
@@ -154,6 +165,7 @@ h2 {
 /* board */
 .game {
     margin: 20px 0;
+    width: 100%;
 }
 
 .game h2 {
@@ -242,40 +254,22 @@ h2 {
 
 /* modals */
 .modal-container {
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
     z-index: 1;
     top: 0;
     left: 0;
-    padding: 0 15px;
-    text-align: center;
     background-color: rgba(51, 222, 210, 0.7);
 }
 
 .success-modal {
-    width: 300px;
-}
-
-.modal-open {
-    display: flex;
-}
-
-.modal-closed {
-    display: none;
-}
-
-.modal {
     padding: 20px;
     background-color: #f9e735;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.modal h1 {
-    margin: 0 0 25px 0;
+#enter-name input {
+    font-size: 2em !important;
+    font-weight: bold;
 }
 
 .success-count {

@@ -1,68 +1,55 @@
 /**
- * module - queries
+ * objects
  */
-const query = (() => {
-    const deck = document.querySelector('.deck');
-    const restartIcon = document.querySelector('.restart');
-    const timerSpan = document.querySelector('.timer-time');
-    const stars = document.querySelector('.score-panel').children;
-    const getCard = document.querySelector('.card');
-    const scoreBoard = document.querySelector('.scores');
+const deck = document.querySelector('.deck');
+const restartIcon = document.querySelector('.restart');
+const timerSpan = document.querySelector('.timer-time');
+const stars = document.querySelector('.score-panel').children;
+const getCard = document.querySelector('.card');
+const scoreBoard = document.querySelector('.scores');
 
-    return {
-        deck: deck,
-        restartIcon: restartIcon,
-        timerSpan: timerSpan,
-        stars: stars,
-        getCard: getCard,
-        scoreBoard: scoreBoard
-    };
-})();
+let player;
+let moveCount = 0;
+let pairCount = 0;
+let starCount = 0;
+let seconds = 0;
+let minutes = 0;
+let zeroSec;
+let zeroMin;
+let timerObj;
+let scores;
+
+let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+let openCards = [];
+cards = cards.concat(cards);
 
 /**
- * module - values
+ * update scoreboard
  */
-const nums = (() => {
-    let moveCount = 0;
-    let pairCount = 0;
-    let starCount = 0;
-    let seconds = 0;
-    let minutes = 0;
-    let zeroSec;
-    let zeroMin;
-    let timerObj;
-    let scores;
+function updateScoreboard() {
+    scores = JSON.parse(localStorage.getItem('scores'));
+    scoreBoard.innerHTML = '';
 
-    return {
-        moveCount: moveCount,
-        pairCount: pairCount,
-        starCount: starCount,
-        seconds: seconds,
-        minutes: minutes,
-        zeroSec: zeroSec,
-        zeroMin: zeroMin,
-        timerObj: timerObj,
-        scores: scores
-    };
-})();
+    for(score of scores) {
+        let scoreTemplate = '<div class="row mx-0"><div>'+score.name+'</div><div>'+score.moves+'</div><div>'+score.time+'</div></div>';
+        let li = document.createElement('li');
+        li.innerHTML = scoreTemplate;
+        scoreBoard.appendChild(li);
+    }
+}
 
 /**
- * module - arrays
+ * set name for game
  */
-const arr = (() => {
-    let cards = [
-        'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 
-        'fa-leaf', 'fa-bicycle', 'fa-bomb'
-    ];
-    let openCards = [];
+function setName() {
+    const initialsInputs = document.getElementById('enter-name').children;
+    let playerInitials;
 
-    cards = cards.concat(cards);
-
-    return {
-        cards: cards,
-        openCards: openCards,
-    };
-})();
+    for(initial of initialsInputs) {
+        playerInitials += initial.value
+        console.log(playerInitials);
+    }
+}
 
 /**
  * get scores
@@ -96,22 +83,14 @@ function getScores() {
         }
     }
     if(storageAvailable('localStorage')) {
-        // if scores dont exist add emtpy array
+        // if scores dont exist add empty array
         if(localStorage.getItem('scores') === null) {
             let scores = [];
             localStorage.setItem('scores', JSON.stringify(scores));
         }
         // else get stored scores
         else {
-            query.scores = JSON.parse(localStorage.getItem('scores'));
-            console.log(query.scores);
-
-            for(score of query.scores) {
-                let scoreTemplate = `<li><div class="row"><div>${score.name}</div><div>${score.moves}</div><div>${score.time}</div></div></li>`;
-                let li = document.createElement('li');
-                li.innerHTML = scoreTemplate;
-                query.scoreBoard.appendChild(li);
-            }
+            updateScoreboard();
         }
     } else {
         return;
@@ -121,10 +100,11 @@ function getScores() {
 /**
  * start game
  */
-document.addEventListener('DOMContentLoaded', () => {
+function startGame() {
+    setName();
     getScores();
-    shuffle(arr.cards);
-    for (let card of arr.cards) {
+    shuffle(cards);
+    for (let card of cards) {
         const cardDiv = document.createElement('DIV');
 
         cardDiv.className = 'card';
@@ -132,19 +112,19 @@ document.addEventListener('DOMContentLoaded', () => {
             '<div class="card-front flex align justify-center"><i class="fa fa-question-circle"></i></div>' +
             '<div class="card-back flex align justify-center"><i class="fa ' + card + '"></i></div>' +
             '</div>'
-        query.deck.appendChild(cardDiv);
+        deck.appendChild(cardDiv);
     }
     boxSize();
     startTimer();
-});
+};
 
 /**
  * set height of cards / margin-bottom based on window
  */
 function boxSize() {
-    let deckW = query.deck.clientWidth;
-    let cardW = query.deck.children[0].clientWidth;
-    for (let card of query.deck.children) {
+    let deckW = deck.clientWidth;
+    let cardW = deck.children[0].clientWidth;
+    for (let card of deck.children) {
         card.style.height = card.clientWidth + 'px';
         card.style.marginBottom = ((deckW - (cardW * 4)) / 3) + 'px';
     }
@@ -173,9 +153,9 @@ function shuffle(array) {
 /**
  * capture click event on any card in deck
  */
-query.deck.addEventListener('click', (e) => {
+deck.addEventListener('click', (e) => {
 
-    if (arr.openCards.length < 2) {
+    if (openCards.length < 2) {
 
         // check if same card is clicked twice
         if (e.target.classList.contains('show')) {
@@ -199,12 +179,12 @@ query.deck.addEventListener('click', (e) => {
                 showCard(whichCard);
 
                 // check if cards match
-                if (arr.openCards.length > 1) {
+                if (openCards.length > 1) {
                     moveCounter();
                     starRating();
-                    if (arr.openCards[0].classList.value === arr.openCards[1].classList.value) {
+                    if (openCards[0].classList.value === openCards[1].classList.value) {
                         isMatch();
-                        if (nums.pairCount === 8) {
+                        if (pairCount === 1) {
                             completed();
                         }
                     } else {
@@ -222,29 +202,29 @@ query.deck.addEventListener('click', (e) => {
  * add timer interval
  */
 function startTimer() {
-    nums.timerObj = setInterval(timer, 1000);
+    timerObj = setInterval(timer, 1000);
 }
 
 /**
  * timer action
  */
 function timer() {
-    (nums.seconds < 9) ? nums.zeroSec = 0 : nums.zeroSec = '';
-    if (nums.seconds < 59) {
-        nums.seconds += 1;
+    (seconds < 9) ? zeroSec = 0 : zeroSec = '';
+    if (seconds < 59) {
+        seconds += 1;
     } else {
-        nums.minutes += 1;
-        nums.seconds = 0;
-        nums.zeroSec = 0;
+        minutes += 1;
+        seconds = 0;
+        zeroSec = 0;
     }
-    (nums.minutes <= 9) ? nums.zeroMin = 0 : nums.zeroMin = '';
-    query.timerSpan.textContent = `${nums.zeroMin}${nums.minutes}:${nums.zeroSec}${nums.seconds}`;
+    (minutes <= 9) ? zeroMin = 0 : zeroMin = '';
+    timerSpan.textContent = `${zeroMin}${minutes}:${zeroSec}${seconds}`;
 }
 
 /**
  * restart during game
  */
-query.restartIcon.addEventListener('click', () => {
+restartIcon.addEventListener('click', () => {
     restartGame();
 });
 
@@ -266,14 +246,14 @@ function showCard(selection) {
  * @param {node} cardBack is the target clicked
  */
 function addCard(cardBack) {
-    return arr.openCards.push(cardBack.firstElementChild);
+    return openCards.push(cardBack.firstElementChild);
 }
 
 /**
  * cards match
  */
 function isMatch() {
-    for (let card of query.deck.children) {
+    for (let card of deck.children) {
         if (card.classList.contains('open')) {
             setTimeout(() => {
                 card.firstElementChild.children[1].classList.add('match');
@@ -281,8 +261,8 @@ function isMatch() {
             }, 800);
         }
     }
-    arr.openCards = [];
-    nums.pairCount += 1;
+    openCards = [];
+    pairCount += 1;
 }
 
 /**
@@ -290,7 +270,7 @@ function isMatch() {
  */
 function noMatch() {
     setTimeout(() => {
-        for (let card of query.deck.children) {
+        for (let card of deck.children) {
             let cardInternal = card.firstElementChild;
             if (cardInternal.children[1].classList.contains('match')) {
                 continue;
@@ -300,7 +280,7 @@ function noMatch() {
                 cardInternal.children[1].classList.remove('flip-it');
             }
         }
-        arr.openCards = [];
+        openCards = [];
     }, 1000);
 }
 
@@ -308,17 +288,17 @@ function noMatch() {
 function moveCounter() {
     const moveCounterSpan = document.querySelector('.moves');
 
-    nums.moveCount += 1;
-    moveCounterSpan.innerHTML = nums.moveCount;
+    moveCount += 1;
+    moveCounterSpan.innerHTML = moveCount;
 }
 
 // star rating
 function starRating() {
-    if (nums.moveCount > 12) {
-        query.stars[2].firstElementChild.classList.replace('star-lit', 'star-out');
+    if (moveCount > 12) {
+        stars[2].firstElementChild.classList.replace('star-lit', 'star-out');
     }
-    if (nums.moveCount > 20) {
-        query.stars[1].firstElementChild.classList.replace('star-lit', 'star-out');
+    if (moveCount > 20) {
+        stars[1].firstElementChild.classList.replace('star-lit', 'star-out');
     }
 }
 
@@ -329,25 +309,25 @@ function completed() {
     const successUl = document.getElementById('success-stars');
 
     // clear timer
-    clearInterval(nums.timerObj);
+    clearInterval(timerObj);
 
     // load stars rating into success modal
-    successUl.innerHTML = query.stars[0].parentNode.innerHTML;
+    successUl.innerHTML = stars[0].parentNode.innerHTML;
 
     // load time into success modal
     setTimeout( () => {
-        const successContainer = document.querySelector('.success-container');
+        const successContainer = document.querySelector('.modal-container');
         const successCount = document.querySelector('.success-count');
         const timeAmount = document.querySelector('.time-amount');
 
-        timeAmount.innerHTML = query.timerSpan.innerHTML;
-        successCount.innerHTML = nums.moveCount;
-        successContainer.classList.replace('modal-closed', 'modal-open');
-        successContainer.className += ' enlarge';
+        timeAmount.innerHTML = timerSpan.innerHTML;
+        successCount.innerHTML = moveCount;
+        successContainer.classList.replace('d-none', 'd-flex');
+        // gsap animate modal here ---->
     },1500);
 
     // add score to score board
-    addScore(nums.moveCount);
+    addScore(moveCount, starCount);
 
 }
 
@@ -358,8 +338,8 @@ function successModal() {
     const restartButton = document.querySelector('.restart-btn');
 
     restartButton.addEventListener('click', () => {
-        const successContainer = document.querySelector('.success-container');
-        successContainer.classList.replace('modal-open', 'modal-closed');
+        const successContainer = document.querySelector('.modal-container');
+        successContainer.classList.replace('d-none', 'd-flex');
         restartGame();
     });
 }
@@ -369,10 +349,10 @@ function successModal() {
  */
 function restartGame() {
     const moveCounterSpan = document.querySelector('.moves');
-    const eachCard = query.deck.children;
-    const successContainer = document.querySelector('.success-container');
+    const eachCard = deck.children;
+    const successContainer = document.querySelector('.modal-container');
 
-    successContainer.classList.replace('modal-open', 'modal-closed');
+    successContainer.classList.replace('d-flex', 'd-none');
 
     moveCounterSpan.innerHTML = 0;
 
@@ -383,17 +363,17 @@ function restartGame() {
             card.firstElementChild.children[1].classList.remove('match');
     }
 
-    shuffle(arr.cards);
+    shuffle(cards);
 
     // reload the deck
     setTimeout(() => {
         for (let j = 0; j < eachCard.length; j++) {
-            eachCard[j].firstElementChild.children[1].firstElementChild.className = `fa ${arr.cards[j]}`;
+            eachCard[j].firstElementChild.children[1].firstElementChild.className = `fa ${cards[j]}`;
         }
     }, 800);
 
     // reload the stars
-    for (star of query.stars) {
+    for (star of stars) {
         if (star.firstElementChild.classList.contains('star-lit')) {
             continue;
         }
@@ -403,16 +383,16 @@ function restartGame() {
     }
 
     // reset values
-    nums.moveCount = 0;
-    nums.pairCount = 0;
-    nums.starCount = 0;
-    arr.openCards = [];
+    moveCount = 0;
+    pairCount = 0;
+    starCount = 0;
+    openCards = [];
 
     // clear timer
-    clearInterval(nums.timerObj);
-    query.timerSpan.textContent = '00:00';
-    nums.seconds = 0;
-    nums.minutes = 0;
+    clearInterval(timerObj);
+    timerSpan.textContent = '00:00';
+    seconds = 0;
+    minutes = 0;
 
     // start timer
     startTimer();
@@ -421,6 +401,16 @@ function restartGame() {
 /**
  * add score
  */
-function addScore(moves, time, stars) {
-    
+function addScore(moves, stars) {
+    let scores = localStorage.getItem('scores');
+    const scoreObj = {
+        moves: moves,
+        stars: stars
+    }
+
+    scores = JSON.parse(scores);
+    scores.push(scoreObj);
+    scores = JSON.stringify(scores);
+    localStorage.setItem('scores', scores);
+    updateScoreboard();
 }
