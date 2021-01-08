@@ -7,13 +7,15 @@ const query = (() => {
     const timerSpan = document.querySelector('.timer-time');
     const stars = document.querySelector('.score-panel').children;
     const getCard = document.querySelector('.card');
+    const scoreBoard = document.querySelector('.scores');
 
     return {
         deck: deck,
         restartIcon: restartIcon,
         timerSpan: timerSpan,
         stars: stars,
-        getCard: getCard
+        getCard: getCard,
+        scoreBoard: scoreBoard
     };
 })();
 
@@ -29,6 +31,7 @@ const nums = (() => {
     let zeroSec;
     let zeroMin;
     let timerObj;
+    let scores;
 
     return {
         moveCount: moveCount,
@@ -39,6 +42,7 @@ const nums = (() => {
         zeroSec: zeroSec,
         zeroMin: zeroMin,
         timerObj: timerObj,
+        scores: scores
     };
 })();
 
@@ -61,12 +65,65 @@ const arr = (() => {
 })();
 
 /**
+ * get scores
+ */
+function getScores() {
+    /**
+     * check storage available
+     */
+    function storageAvailable(type) {
+        var storage;
+        try {
+            storage = window[type];
+            var x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch(e) {
+            return e instanceof DOMException && (
+                // everything except Firefox
+                e.code === 22 ||
+                // Firefox
+                e.code === 1014 ||
+                // test name field too, because code might not be present
+                // everything except Firefox
+                e.name === 'QuotaExceededError' ||
+                // Firefox
+                e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+                // acknowledge QuotaExceededError only if there's something already stored
+                (storage && storage.length !== 0);
+        }
+    }
+    if(storageAvailable('localStorage')) {
+        // if scores dont exist add emtpy array
+        if(localStorage.getItem('scores') === null) {
+            let scores = [];
+            localStorage.setItem('scores', JSON.stringify(scores));
+        }
+        // else get stored scores
+        else {
+            query.scores = JSON.parse(localStorage.getItem('scores'));
+            console.log(query.scores);
+
+            for(score of query.scores) {
+                let scoreTemplate = `<li><div class="row"><div>${score.name}</div><div>${score.moves}</div><div>${score.time}</div></div></li>`;
+                let li = document.createElement('li');
+                li.innerHTML = scoreTemplate;
+                query.scoreBoard.appendChild(li);
+            }
+        }
+    } else {
+        return;
+    }
+}
+
+/**
  * start game
  */
 document.addEventListener('DOMContentLoaded', () => {
-
+    getScores();
     shuffle(arr.cards);
-
     for (let card of arr.cards) {
         const cardDiv = document.createElement('DIV');
 
@@ -289,6 +346,9 @@ function completed() {
         successContainer.className += ' enlarge';
     },1500);
 
+    // add score to score board
+    addScore(nums.moveCount);
+
 }
 
 /**
@@ -356,4 +416,11 @@ function restartGame() {
 
     // start timer
     startTimer();
+}
+
+/**
+ * add score
+ */
+function addScore(moves, time, stars) {
+    
 }
