@@ -1,6 +1,7 @@
 /**
  * objects
  */
+const startButton = document.getElementById('start-button');
 const deck = document.querySelector('.deck');
 const restartIcon = document.querySelector('.restart');
 const timerSpan = document.querySelector('.timer-time');
@@ -31,24 +32,32 @@ function updateScoreboard() {
     scoreBoard.innerHTML = '';
 
     for(score of scores) {
-        let scoreTemplate = '<div class="row mx-0"><div>'+score.name+'</div><div>'+score.moves+'</div><div>'+score.time+'</div></div>';
-        let li = document.createElement('li');
-        li.innerHTML = scoreTemplate;
-        scoreBoard.appendChild(li);
+        let scoreTemplate = '<li class="col-3">'+score.name+'</li><li class="col-3">'+score.moves+'</li><li class="col-3">'+score.time+'</li><li class="col-3">'+score.stars+'</li>';
+        scoreBoard.innerHTML = scoreTemplate;
     }
 }
+
+startButton.addEventListener('click', (e)=>{
+    e.preventDefault();
+    startGame();
+});
 
 /**
  * set name for game
  */
 function setName() {
     const initialsInputs = document.getElementById('enter-name').children;
-    let playerInitials;
+    let playerInitials = '';
 
     for(initial of initialsInputs) {
-        playerInitials += initial.value
-        console.log(playerInitials);
+        playerInitials += initial.value;
     }
+
+    player = playerInitials + '';
+
+    // gsap animation here...
+    document.querySelector('.modal-container').classList.replace('d-flex', 'd-none');
+    document.querySelector('#name-modal').classList.add('d-none');
 }
 
 /**
@@ -87,10 +96,11 @@ function getScores() {
         if(localStorage.getItem('scores') === null) {
             let scores = [];
             localStorage.setItem('scores', JSON.stringify(scores));
+            console.log('empty');
         }
         // else get stored scores
         else {
-            updateScoreboard();
+            return 
         }
     } else {
         return;
@@ -104,6 +114,7 @@ function startGame() {
     setName();
     getScores();
     shuffle(cards);
+
     for (let card of cards) {
         const cardDiv = document.createElement('DIV');
 
@@ -114,7 +125,9 @@ function startGame() {
             '</div>'
         deck.appendChild(cardDiv);
     }
+
     boxSize();
+    window.addEventListener('resize', () => { boxSize();});
     startTimer();
 };
 
@@ -129,9 +142,6 @@ function boxSize() {
         card.style.marginBottom = ((deckW - (cardW * 4)) / 3) + 'px';
     }
 }
-window.addEventListener('resize', () => {
-    boxSize();
-});
 
 /**
  * Shuffle function from http://stackoverflow.com/a/2450976
@@ -324,10 +334,8 @@ function completed() {
         successCount.innerHTML = moveCount;
         successContainer.classList.replace('d-none', 'd-flex');
         // gsap animate modal here ---->
+        successContainer.querySelector('#success-modal').classList.replace('d-none', 'd-flex');
     },1500);
-
-    // add score to score board
-    addScore(moveCount, starCount);
 
 }
 
@@ -338,8 +346,8 @@ function successModal() {
     const restartButton = document.querySelector('.restart-btn');
 
     restartButton.addEventListener('click', () => {
-        const successContainer = document.querySelector('.modal-container');
-        successContainer.classList.replace('d-none', 'd-flex');
+        const modalContainer = document.querySelector('.modal-container');
+        modalContainer.classList.replace('d-none', 'd-flex');
         restartGame();
     });
 }
@@ -382,6 +390,9 @@ function restartGame() {
         }
     }
 
+    // add score to score board
+    addScore();
+
     // reset values
     moveCount = 0;
     pairCount = 0;
@@ -401,11 +412,23 @@ function restartGame() {
 /**
  * add score
  */
-function addScore(moves, stars) {
+function addScore() {
     let scores = localStorage.getItem('scores');
+
+    const stars = document.getElementById('success-stars').children;
+    console.log(stars);
+    let starCounting = 0;
+    for(star of stars) {
+        if(star.firstElementChild.classList.contains('star-lit')) {
+            starCounting += 1;
+        }
+    }    
+
     const scoreObj = {
-        moves: moves,
-        stars: stars
+        name: player,
+        moves: moveCount,
+        stars: starCounting,
+        time: timerSpan.textContent
     }
 
     scores = JSON.parse(scores);

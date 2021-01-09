@@ -18,23 +18,23 @@
         <div class="container">
 
             <!-- enter name modal -->
-            <div class="success-modal col-lg-8 mx-auto text-center">
+            <div id="name-modal" class="success-modal col-lg-8 mx-auto text-center">
                 <h1>Welcome.</h1>
                 <p>Please enter your initials:</p>
     
                 <div class="all-results flex wrap justify">
                     <form id="enter-name" action="" class="form-group">
-                        <input type="text" class="form-control input-lg col-3 col-md-2 text-center d-inline" maxlength="1" required>
-                        <input type="text" class="form-control input-lg col-3 col-md-2 text-center d-inline" maxlength="1" required>
-                        <input type="text" class="form-control input-lg col-3 col-md-2 text-center d-inline" maxlength="1" required>
-                        <button type="submit" class="restart-btn btn btn-dark" onclick="startGame()">Start Game</button>
+                        <input type="text" class="form-control input-lg col-3 col-md-2 text-center d-inline" maxlength="1">
+                        <input type="text" class="form-control input-lg col-3 col-md-2 text-center d-inline" maxlength="1">
+                        <input type="text" class="form-control input-lg col-3 col-md-2 text-center d-inline" maxlength="1">
+                        <button id="start-button" class="restart-btn btn btn-dark">Start Game</button>
                     </form>
                 </div>
     
             </div>
 
             <!-- success modal -->
-            <div class="success-modal d-none col-lg-8 mx-auto text-center">
+            <div id="success-modal" class="success-modal d-none col-lg-8 mx-auto text-center">
                 <h1>Great!</h1>
                 <p>You've finished the game. Your results are:</p>
     
@@ -99,8 +99,14 @@
             </div>
     
             <!-- scoreboard -->
-            <div class="score-board col-lg-3">
-                <ul class="scores"></ul>
+            <div class="score-board col-lg-4 rounded pl-lg-0">
+                <ul class="list-unstyled d-flex mt-3">
+                    <li class="col-3">Player</li>
+                    <li class="col-3">Moves</li>
+                    <li class="col-3">Time</li>
+                    <li class="col-3">Stars</li>
+                </ul>
+                <ul class="scores list-unstyled d-flex"></ul>
             </div>
 
         </div>
