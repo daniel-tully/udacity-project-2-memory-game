@@ -32,8 +32,14 @@ function updateScoreboard() {
     scoreBoard.innerHTML = '';
 
     for(score of scores) {
-        let scoreTemplate = '<li class="col-3">'+score.name+'</li><li class="col-3">'+score.moves+'</li><li class="col-3">'+score.time+'</li><li class="col-3">'+score.stars+'</li>';
-        scoreBoard.innerHTML = scoreTemplate;
+        let scoreTemplate =
+        '<li class="d-flex justify-content-between text-center">' +
+            '<span class="col-3">'+score.name+'</span>'+
+            '<span class="col-3">'+score.moves+'</span>'+
+            '<span class="col-3">'+score.time+'</span>'+
+            '<span class="col-3">'+score.stars+'</span>'+
+        '</li>';
+        scoreBoard.innerHTML += scoreTemplate;
     }
 }
 
@@ -113,6 +119,7 @@ function getScores() {
 function startGame() {
     setName();
     getScores();
+    updateScoreboard();
     shuffle(cards);
 
     for (let card of cards) {
@@ -194,7 +201,7 @@ deck.addEventListener('click', (e) => {
                     starRating();
                     if (openCards[0].classList.value === openCards[1].classList.value) {
                         isMatch();
-                        if (pairCount === 1) {
+                        if (pairCount === 8) {
                             completed();
                         }
                     } else {
@@ -394,16 +401,13 @@ function restartGame() {
     addScore();
 
     // reset values
-    moveCount = 0;
-    pairCount = 0;
-    starCount = 0;
+    moveCount, pairCount, starCount = 0;
     openCards = [];
 
     // clear timer
     clearInterval(timerObj);
     timerSpan.textContent = '00:00';
-    seconds = 0;
-    minutes = 0;
+    seconds, minutes = 0;
 
     // start timer
     startTimer();
@@ -414,15 +418,14 @@ function restartGame() {
  */
 function addScore() {
     let scores = localStorage.getItem('scores');
-
     const stars = document.getElementById('success-stars').children;
-    console.log(stars);
     let starCounting = 0;
+
     for(star of stars) {
         if(star.firstElementChild.classList.contains('star-lit')) {
             starCounting += 1;
         }
-    }    
+    }
 
     const scoreObj = {
         name: player,
@@ -433,6 +436,7 @@ function addScore() {
 
     scores = JSON.parse(scores);
     scores.push(scoreObj);
+    console.log(scores);
     scores = JSON.stringify(scores);
     localStorage.setItem('scores', scores);
     updateScoreboard();
